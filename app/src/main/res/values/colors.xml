@@ -3,4 +3,9 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+
+    <color name="cinza_escuro">#5B5855</color>
+    <color name="cinza">#7D7A77</color>
+    <color name="rosa">#F77274</color>
+
 </resources>
