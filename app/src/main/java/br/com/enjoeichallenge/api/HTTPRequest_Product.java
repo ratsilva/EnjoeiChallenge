@@ -1,11 +1,16 @@
 package br.com.enjoeichallenge.api;
 
-public class HTTPRequest_Product extends HTTPRequest {
+import java.util.ArrayList;
 
-    public void getProdutos(){
+import br.com.enjoeichallenge.models.Product;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.http.GET;
 
+public interface HTTPRequest_Product {
 
-
-    }
+    //@GET("todos/1")
+    @GET("products/home")
+    Call<ResponseBody> getProducts();
 
 }

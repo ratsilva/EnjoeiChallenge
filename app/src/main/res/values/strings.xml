@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">EnjoeiChallenge</string>
+    <string name="title_activity_product">ProductActivity</string>
+    <string name="action_settings">Settings</string>
 </resources>
