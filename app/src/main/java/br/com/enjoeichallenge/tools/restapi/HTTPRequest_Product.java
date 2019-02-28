@@ -1,8 +1,5 @@
-package br.com.enjoeichallenge.api;
+package br.com.enjoeichallenge.tools.restapi;
 
-import java.util.ArrayList;
-
-import br.com.enjoeichallenge.models.Product;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;

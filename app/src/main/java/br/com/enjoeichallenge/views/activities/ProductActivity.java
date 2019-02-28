@@ -3,10 +3,12 @@ package br.com.enjoeichallenge.views.activities;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import br.com.enjoeichallenge.R;
 import br.com.enjoeichallenge.controllers.ProductController;
+import br.com.enjoeichallenge.tools.imageapi.ImageHelper;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -19,8 +21,12 @@ public class ProductActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        productController = new ProductController();
-        productController.requestProducts();
+        //productController = new ProductController();
+        //productController.requestProducts();
+
+        ImageHelper img = new ImageHelper(this);
+        String url = img.getImageURL("sunset_shoes", "fill", "auto");
+        Log.v("image", url);
 
     }
 

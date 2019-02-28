@@ -1,11 +1,6 @@
 package br.com.enjoeichallenge;
 
-import org.junit.Before;
 import org.junit.Test;
-
-import java.net.URL;
-
-import br.com.enjoeichallenge.api.HTTPRequest;
 
 public class HTTPRequest_Test {
 

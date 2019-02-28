@@ -1,13 +1,11 @@
 package br.com.enjoeichallenge.controllers;
 
-import android.app.Application;
-import android.content.Context;
 import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import br.com.enjoeichallenge.api.HTTPRequest_Product;
+import br.com.enjoeichallenge.tools.restapi.HTTPRequest_Product;
 import br.com.enjoeichallenge.models.Product;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

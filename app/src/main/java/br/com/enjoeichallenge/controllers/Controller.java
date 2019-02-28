@@ -1,6 +1,6 @@
 package br.com.enjoeichallenge.controllers;
 
-import br.com.enjoeichallenge.api.HTTPRequest;
+import br.com.enjoeichallenge.tools.restapi.HTTPRequest;
 
 public class Controller {
 
