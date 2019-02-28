@@ -31,7 +31,7 @@ public class ProductController extends Controller {
 
 
     public ProductController(Context ctx_){
-        super();
+        super(ctx_);
         ctx = ctx_;
 
         sqlProduct = new SQLiteManager_Product(ctx);
@@ -40,6 +40,8 @@ public class ProductController extends Controller {
     }
 
     public void requestProducts(){
+
+        if(!testConnection()) return;
 
         Call<Product.ProductJson> listProducts = httpProduct.getProducts();
 
@@ -54,16 +56,16 @@ public class ProductController extends Controller {
                 for(Product p : prodJson.getProduts()){
 
                     // Inserir photo do usuário
-                    long id_photo = sqlPhoto.insert(p.getUser().getAvatar());
+                    long id_photo = sqlPhoto.save(p.getUser().getAvatar());
 
                     // Inserir usuário
                     p.getUser().setId_photo(id_photo);
-                    long id_user = sqlUser.insert(p.getUser());
+                    long id_user = sqlUser.save(p.getUser());
 
                     // Inserir produto
-                    long id_product = sqlProduct.insert(p);
+                    long id_product = sqlProduct.save(p);
                     for(Photo photo : p.getPhotos()){
-                        sqlPhoto.insert(photo);
+                        sqlPhoto.save(photo);
                     }
 
                     //Log.v("database", "inserindo produto: " + p.getId());

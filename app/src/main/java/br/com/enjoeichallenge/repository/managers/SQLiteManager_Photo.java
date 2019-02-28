@@ -6,6 +6,7 @@ import android.content.Context;
 import java.util.ArrayList;
 
 import br.com.enjoeichallenge.models.Photo;
+import br.com.enjoeichallenge.models.User;
 
 public class SQLiteManager_Photo extends SQLiteManager implements SQLiteManager_CRUD {
 
@@ -41,8 +42,8 @@ public class SQLiteManager_Photo extends SQLiteManager implements SQLiteManager_
     }
 
     @Override
-    public boolean update(Object obj) {
-        return false;
+    public long update(Object obj) {
+        return 0;
     }
 
     @Override
@@ -53,5 +54,17 @@ public class SQLiteManager_Photo extends SQLiteManager implements SQLiteManager_
     @Override
     public ArrayList<Object> selectAll() {
         return null;
+    }
+
+    @Override
+    public long save(Object obj) {
+
+        Photo photo = (Photo) obj;
+        long id_photo;
+
+        if(select(photo.getId()) != null) 	id_photo = update(obj);
+        else						        id_photo = insert(obj);
+
+        return id_photo;
     }
 }

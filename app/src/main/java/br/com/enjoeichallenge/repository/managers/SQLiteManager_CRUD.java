@@ -11,10 +11,13 @@ public interface SQLiteManager_CRUD {
     boolean delete(Object obj);
 
     // Update
-    boolean update(Object obj);
+    long update(Object obj);
 
     // Select
     Object select(int id);
     ArrayList<Object> selectAll();
+
+    // Auxiliares
+    long save(Object obj);
 
 }

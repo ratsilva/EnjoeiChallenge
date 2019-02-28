@@ -2,6 +2,7 @@ package br.com.enjoeichallenge.repository.managers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -50,8 +51,8 @@ public class SQLiteManager_Product extends SQLiteManager implements SQLiteManage
     }
 
     @Override
-    public boolean update(Object obj) {
-        return false;
+    public long update(Object obj) {
+        return 0;
     }
 
     @Override
@@ -62,5 +63,23 @@ public class SQLiteManager_Product extends SQLiteManager implements SQLiteManage
     @Override
     public ArrayList<Object> selectAll() {
         return null;
+    }
+
+    @Override
+    public long save(Object obj) {
+
+        Product product = (Product) obj;
+        long id_product;
+
+        if(select(product.getId()) != null){
+            id_product = update(obj);
+            Log.v("saving", "atualizando produto: " + product.getId());
+        }
+        else{
+            id_product = insert(obj);
+            Log.v("saving", "inserindo produto: " + product.getId());
+        }
+
+        return id_product;
     }
 }
