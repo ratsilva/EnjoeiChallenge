@@ -6,6 +6,7 @@ public class PhotoContract {
     public static final String TABLE_NAME = "Photo";
 
     // Table Fields
+    public static final String ID_PHOTO      = "id_photo";
     public static final String PUBLIC_ID     = "public_id";
     public static final String CROP          = "crop";
     public static final String GRAVITY       = "gravity";

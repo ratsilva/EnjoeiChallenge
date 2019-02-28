@@ -3,45 +3,48 @@ package br.com.enjoeichallenge.repository.util;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import br.com.enjoeichallenge.objects.contracts.PhotoContract;
+import br.com.enjoeichallenge.objects.contracts.ProductContract;
+import br.com.enjoeichallenge.objects.contracts.UserContract;
+
 public class SQLiteRepository{
 
     private static final String[] SCRIPT_DATABASE_CREATE = new String[] {
 
-            "DROP TABLE IF EXISTS Product;" 	,
-            "DROP TABLE IF EXISTS User;" 		,
-            "DROP TABLE IF EXISTS Photo;" 		,
+            "DROP TABLE IF EXISTS " + ProductContract.TABLE_NAME + ";" 	,
+            "DROP TABLE IF EXISTS " + PhotoContract.TABLE_NAME + ";" 	,
+            "DROP TABLE IF EXISTS " + UserContract.TABLE_NAME + ";" 	,
 
-            "	CREATE TABLE 'Product' (	"	+
-                    "	  'id_product'                  integer 	,	"	+
-                    "	  'discount_percentage' 	    real 		,	"	+
-                    "	  'title' 		                text 		,	"	+
-                    "	  'price' 			            real 		,	"	+
-                    "	  'original_price' 		        real 		,	"	+
-                    "	  'size' 			            text		,	"	+
-                    "	  'likes_count' 			    integer		,	"	+
-                    "	  'maximum_installment' 	    integer		,	"	+
-                    "	  'published_comments_count'    integer		,	"	+
-                    "	  'content' 	                text		,	"	+
-                    "	  'id_user'                  	integer		,	"	+
-                    "	  PRIMARY KEY (id_product,id_user)			"	+
-                    "	);	"
-            ,
+            "	CREATE TABLE '" + ProductContract.TABLE_NAME + "' (	"	+
+            "	    '" + ProductContract.ID_PRODUCT                     + "'  integer 	,	"	+
+            "	    '" + ProductContract.DISCOUNT_PERCENTAGE            + "'  real 	    ,	"	+
+            "	    '" + ProductContract.TITLE                          + "'  text 	    ,	"	+
+            "	    '" + ProductContract.PRICE                          + "'  real 	    ,	"	+
+            "	    '" + ProductContract.ORIGINAL_PRICE                 + "'  real 	    ,	"	+
+            "	    '" + ProductContract.SIZE                           + "'  text 	    ,	"	+
+            "	    '" + ProductContract.LIKES_COUNT                    + "'  integer 	,	"	+
+            "	    '" + ProductContract.MAXIMUM_INSTALLMENT            + "'  integer 	,	"	+
+            "	    '" + ProductContract.PUBLISHED_COMMENTS_COUNT       + "'  integer 	,	"	+
+            "	    '" + ProductContract.CONTENT                        + "'  text 	    ,	"	+
+            "	    '" + ProductContract.ID_USER                        + "'  integer 	,	"	+
+            "	    PRIMARY KEY (" + ProductContract.ID_PRODUCT + ", " + ProductContract.ID_USER + ")"	+
+            "	);	",
 
-            "	CREATE TABLE 'User' (	"	+
-                    "	  'id_user' 		            integer 	,	"	+
-                    "	  'name' 	                    text 		,	"	+
-                    "	  'id_photo' 		            integer 	,	"   +
-                    "	  PRIMARY KEY (id_user)			            "	+
-                    "	);	"
-            ,
+            "	CREATE TABLE '" + UserContract.TABLE_NAME + "' (	"	+
+                    "	    '" + UserContract.ID_USER         + "'  integer 	,	"	+
+                    "	    '" + UserContract.NAME            + "'  text 	    ,	"	+
+                    "	    '" + UserContract.ID_PHOTO        + "'  integer 	,	"	+
+                    "	    PRIMARY KEY (" + UserContract.ID_USER + ")"	+
+                    "	);	",
 
-            "	CREATE TABLE 'Photo' (	"	+
-                    "	  'id_photo' 		            integer PRIMARY KEY AUTOINCREMENT 	,	"	+
-                    "	  'public_id' 	                text 		            ,	"	+
-                    "	  'crop' 		                text 	                ,	"   +
-                    "	  'gravity' 		            text 	                ,	"   +
-                    "	  'id_product' 		            integer                 "   +
+            "	CREATE TABLE '" + PhotoContract.TABLE_NAME + "' (	"	+
+                    "	    '" + PhotoContract.ID_PHOTO         + "'  integer PRIMARY KEY AUTOINCREMENT	,	"	+
+                    "	    '" + PhotoContract.PUBLIC_ID        + "'  text 	                            ,	"	+
+                    "	    '" + PhotoContract.CROP             + "'  text 	                            ,	"	+
+                    "	    '" + PhotoContract.GRAVITY          + "'  text 	                            ,	"	+
+                    "	    '" + PhotoContract.ID_PRODUCT       + "'  integer 		                    "	+
                     "	);	"
+
     };
 
     private static String NOME_BANCO = "enjoeichallenge_database";
