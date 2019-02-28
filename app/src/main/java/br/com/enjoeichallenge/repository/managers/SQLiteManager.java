@@ -10,6 +10,8 @@ public class SQLiteManager {
 
     // Variáveis auxiliares
     private static Context ctx;
+    protected final int OPEN_MODE = 1;
+    protected final int CLOSE_MODE = 2;
 
     // Variáveis de controle do banco de dados
     protected  	static SQLiteDatabase       sqlite;

@@ -36,12 +36,11 @@ public class SQLiteRepository{
             ,
 
             "	CREATE TABLE 'Photo' (	"	+
-                    "	  'id_photo' 		            integer 	,	"	+
-                    "	  'public_id' 	                text 		,	"	+
-                    "	  'crop' 		                text 	    ,	"   +
-                    "	  'gravity' 		            text 	    ,	"   +
-                    "	  'id_product' 		            integer     ,	"   +
-                    "	  PRIMARY KEY (id_photo)			        "	+
+                    "	  'id_photo' 		            integer PRIMARY KEY AUTOINCREMENT 	,	"	+
+                    "	  'public_id' 	                text 		            ,	"	+
+                    "	  'crop' 		                text 	                ,	"   +
+                    "	  'gravity' 		            text 	                ,	"   +
+                    "	  'id_product' 		            integer                 "   +
                     "	);	"
     };
 
