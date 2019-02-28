@@ -10,7 +10,7 @@ public class Product {
     private String title;
     private double price;
     private double original_price;
-    private int size;
+    private String size;
     private int likes_count;
     private int maximum_installment;
     private int published_comments_count;
@@ -65,11 +65,11 @@ public class Product {
         this.original_price = original_price;
     }
 
-    public int getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(int size) {
+    public void setSize(String size) {
         this.size = size;
     }
 
@@ -111,6 +111,19 @@ public class Product {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public class ProductJson{
+
+        List<Product> products;
+
+        public List<Product> getProduts() {
+            return products;
+        }
+
+        public void setProduts(List<Product> products) {
+            this.products = products;
+        }
     }
 }
 

@@ -21,12 +21,12 @@ public class ProductActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //productController = new ProductController();
-        //productController.requestProducts();
+        productController = new ProductController();
+        productController.requestProducts();
 
-        ImageHelper img = new ImageHelper(this);
-        String url = img.getImageURL("sunset_shoes", "fill", "auto");
-        Log.v("image", url);
+        //ImageHelper img = new ImageHelper(this);
+        //String url = img.getImageURL("sunset_shoes", "fill", "auto");
+        //Log.v("image", url);
 
     }
 

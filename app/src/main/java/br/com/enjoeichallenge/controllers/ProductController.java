@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import br.com.enjoeichallenge.tools.restapi.HTTPRequest_Product;
 import br.com.enjoeichallenge.models.Product;
@@ -24,21 +25,18 @@ public class ProductController extends Controller {
 
     public void requestProducts(){
 
-        Call<ResponseBody> listProducts = httpProduct.getProducts();
+        Call<Product.ProductJson> listProducts = httpProduct.getProducts();
 
-        listProducts.enqueue(new Callback<ResponseBody>() {
+        listProducts.enqueue(new Callback<Product.ProductJson>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<Product.ProductJson> call, Response<Product.ProductJson> response) {
                 // pegar a resposta
-                try {
-                    Log.v("response", ""+response.body().string());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                Product.ProductJson prodJson = response.body();
+
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<Product.ProductJson> call, Throwable t) {
                 // tratar algum erro
                 Log.v("failure", ""+t.getMessage());
             }
