@@ -3,17 +3,14 @@ package br.com.enjoeichallenge.controllers;
 import android.content.Context;
 import android.util.Log;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
-import br.com.enjoeichallenge.models.Photo;
+import br.com.enjoeichallenge.objects.Photo;
 import br.com.enjoeichallenge.repository.managers.SQLiteManager_Photo;
 import br.com.enjoeichallenge.repository.managers.SQLiteManager_Product;
 import br.com.enjoeichallenge.repository.managers.SQLiteManager_User;
 import br.com.enjoeichallenge.tools.restapi.HTTPRequest_Product;
-import br.com.enjoeichallenge.models.Product;
-import okhttp3.ResponseBody;
+import br.com.enjoeichallenge.objects.Product;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

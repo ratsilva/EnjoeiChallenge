@@ -1,4 +1,4 @@
-package br.com.enjoeichallenge.models;
+package br.com.enjoeichallenge.objects;
 
 import java.util.List;
 

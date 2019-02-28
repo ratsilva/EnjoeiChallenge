@@ -5,8 +5,8 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
-import br.com.enjoeichallenge.models.Photo;
-import br.com.enjoeichallenge.models.User;
+import br.com.enjoeichallenge.objects.Photo;
+import br.com.enjoeichallenge.objects.contracts.PhotoContract;
 
 public class SQLiteManager_Photo extends SQLiteManager implements SQLiteManager_CRUD {
 
@@ -23,13 +23,12 @@ public class SQLiteManager_Photo extends SQLiteManager implements SQLiteManager_
 
         ContentValues valores = new ContentValues();
 
-        //valores.put("id_user"	    , 	id_photo	);
-        valores.put("public_id"		, 	photo.getPublic_id()	);
-        valores.put("crop"		    , 	photo.getCrop()	        );
-        valores.put("gravity"		, 	photo.getGravity()	    );
-        valores.put("id_product"	, 	photo.getId_product()	);
+        valores.put(PhotoContract.PUBLIC_ID		, 	photo.getPublic_id()	);
+        valores.put(PhotoContract.CROP		    , 	photo.getCrop()	        );
+        valores.put(PhotoContract.GRAVITY		, 	photo.getGravity()	    );
+        valores.put(PhotoContract.ID_PRODUCT	, 	photo.getId_product()	);
 
-        long id_photo = sqlite.insert("Photo", null, valores);
+        long id_photo = sqlite.insert(PhotoContract.TABLE_NAME, null, valores);
 
         accessDB(CLOSE_MODE);
 

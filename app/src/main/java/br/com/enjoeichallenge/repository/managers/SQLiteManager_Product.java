@@ -6,8 +6,8 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import br.com.enjoeichallenge.models.Product;
-import br.com.enjoeichallenge.models.User;
+import br.com.enjoeichallenge.objects.Product;
+import br.com.enjoeichallenge.objects.contracts.ProductContract;
 
 public class SQLiteManager_Product extends SQLiteManager implements SQLiteManager_CRUD {
 
@@ -25,19 +25,19 @@ public class SQLiteManager_Product extends SQLiteManager implements SQLiteManage
 
         ContentValues valores = new ContentValues();
 
-        valores.put("id_product"		        , 	product.getId()        	                );
-        valores.put("discount_percentage"	    , 	product.getDiscount_percentage()	    );
-        valores.put("title"		                , 	product.getTitle()	                    );
-        valores.put("price"		                , 	product.getPrice()	                    );
-        valores.put("original_price"		    , 	product.getOriginal_price()	            );
-        valores.put("size"		                , 	product.getSize()	                    );
-        valores.put("likes_count"		        , 	product.getLikes_count()	            );
-        valores.put("maximum_installment"		, 	product.getMaximum_installment()	    );
-        valores.put("published_comments_count"  , 	product.getPublished_comments_count()   );
-        valores.put("content"		            , 	product.getContent()	                );
-        valores.put("id_user"		            , 	product.getUser().getId()	            );
+        valores.put(ProductContract.ID_PRODUCT		            , 	product.getId()        	                );
+        valores.put(ProductContract.DISCOUNT_PERCENTAGE	        , 	product.getDiscount_percentage()	    );
+        valores.put(ProductContract.TITLE		                , 	product.getTitle()	                    );
+        valores.put(ProductContract.PRICE	                    , 	product.getPrice()	                    );
+        valores.put(ProductContract.ORIGINAL_PRICE		        , 	product.getOriginal_price()	            );
+        valores.put(ProductContract.SIZE		                , 	product.getSize()	                    );
+        valores.put(ProductContract.LIKES_COUNT		            , 	product.getLikes_count()	            );
+        valores.put(ProductContract.MAXIMUM_INSTALLMENT		    , 	product.getMaximum_installment()	    );
+        valores.put(ProductContract.PUBLISHED_COMMENTS_COUNT    , 	product.getPublished_comments_count()   );
+        valores.put(ProductContract.CONTENT	    	            , 	product.getContent()	                );
+        valores.put(ProductContract.ID_USER 		            , 	product.getUser().getId()	            );
 
-        long id_product = sqlite.insert("Product", null, valores);
+        long id_product = sqlite.insert(ProductContract.TABLE_NAME, null, valores);
 
         accessDB(CLOSE_MODE);
 

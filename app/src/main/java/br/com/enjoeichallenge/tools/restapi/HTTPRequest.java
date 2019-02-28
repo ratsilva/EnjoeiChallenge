@@ -11,8 +11,6 @@ public class HTTPRequest {
 
     public HTTPRequest(){
 
-        //BASE_URL = "https://jsonplaceholder.typicode.com/";
-
         this.retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())

@@ -5,9 +5,8 @@ import android.content.Context;
 
 import java.util.ArrayList;
 
-import br.com.enjoeichallenge.models.Photo;
-import br.com.enjoeichallenge.models.Product;
-import br.com.enjoeichallenge.models.User;
+import br.com.enjoeichallenge.objects.User;
+import br.com.enjoeichallenge.objects.contracts.UserContract;
 
 public class SQLiteManager_User extends SQLiteManager implements SQLiteManager_CRUD {
 
@@ -24,11 +23,11 @@ public class SQLiteManager_User extends SQLiteManager implements SQLiteManager_C
 
         ContentValues valores = new ContentValues();
 
-        valores.put("id_user"		, 	user.getId()        	);
-        valores.put("name"		    , 	user.getName()	        );
-        valores.put("id_photo"		, 	user.getId_photo()	    );
+        valores.put(UserContract.ID_USER		, 	user.getId()        	);
+        valores.put(UserContract.NAME		    , 	user.getName()	        );
+        valores.put(UserContract.ID_PHOTO		, 	user.getId_photo()	    );
 
-        long id_user = sqlite.insert("User", null, valores);
+        long id_user = sqlite.insert(UserContract.TABLE_NAME, null, valores);
 
         accessDB(CLOSE_MODE);
 
@@ -63,7 +62,7 @@ public class SQLiteManager_User extends SQLiteManager implements SQLiteManager_C
         long id_user;
 
         if(select(user.getId()) != null) 	id_user = update(obj);
-        else						            id_user = insert(obj);
+        else						        id_user = insert(obj);
 
         return id_user;
     }
