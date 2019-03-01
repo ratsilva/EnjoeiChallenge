@@ -70,10 +70,10 @@ public class SQLiteManager_Photo extends SQLiteManager implements SQLiteManager_
 
             photo = new Photo();
 
-            photo.setId(c.getInt(0));
-            photo.setPublic_id(c.getString(1));
-            photo.setCrop(c.getString(2));
-            photo.setGravity(c.getString(3));
+            photo.setId(            c.getInt(0));
+            photo.setPublic_id(     c.getString(1));
+            photo.setCrop(          c.getString(2));
+            photo.setGravity(       c.getString(3));
 
         }
 
@@ -87,7 +87,42 @@ public class SQLiteManager_Photo extends SQLiteManager implements SQLiteManager_
 
     @Override
     public ArrayList<Object> selectAll(String where) {
-        return null;
+
+        accessDB(OPEN_MODE);
+
+        Cursor c = sqlite.rawQuery(
+
+                "SELECT "
+                        + "		  " + PhotoContract.ID_PHOTO        + "					,"
+                        + "		  " + PhotoContract.PUBLIC_ID       + "					,"
+                        + "		  " + PhotoContract.CROP            + "					,"
+                        + "		  " + PhotoContract.GRAVITY         + "					"
+                        + " FROM " + PhotoContract.TABLE_NAME
+                        + " " + where, null);
+
+        Photo photo;
+
+        ArrayList<Object> listPhotos = new ArrayList<>();
+        while(c.moveToNext()) {
+
+            photo = new Photo();
+
+            photo.setId(            c.getInt(0));
+            photo.setPublic_id(     c.getString(1));
+            photo.setCrop(          c.getString(2));
+            photo.setGravity(       c.getString(3));
+
+            listPhotos.add(photo);
+
+        }
+
+        c.close();
+
+        accessDB(CLOSE_MODE);
+
+        if(listPhotos.isEmpty()) 	return null;
+        else					    return listPhotos;
+
     }
 
     @Override

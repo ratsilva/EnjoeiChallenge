@@ -28,13 +28,13 @@ public class SQLiteManager_User extends SQLiteManager implements SQLiteManager_C
 
         accessDB(OPEN_MODE);
 
-        ContentValues valores = new ContentValues();
+        ContentValues values = new ContentValues();
 
-        valores.put(UserContract.ID_USER		, 	user.getId()        	);
-        valores.put(UserContract.NAME		    , 	user.getName()	        );
-        valores.put(UserContract.ID_PHOTO		, 	user.getId_photo()	    );
+        values.put(UserContract.ID_USER		, 	user.getId()        	);
+        values.put(UserContract.NAME		    , 	user.getName()	        );
+        values.put(UserContract.ID_PHOTO		, 	user.getId_photo()	    );
 
-        long id_user = sqlite.insert(UserContract.TABLE_NAME, null, valores);
+        long id_user = sqlite.insert(UserContract.TABLE_NAME, null, values);
 
         accessDB(CLOSE_MODE);
 
@@ -77,9 +77,9 @@ public class SQLiteManager_User extends SQLiteManager implements SQLiteManager_C
 
             user = new User();
 
-            user.setId(c.getInt(0));
-            user.setName(c.getString(1));
-            user.setId_photo(c.getInt(2));
+            user.setId(         c.getInt(0));
+            user.setName(       c.getString(1));
+            user.setId_photo(   c.getInt(2));
 
         }
 
@@ -99,7 +99,57 @@ public class SQLiteManager_User extends SQLiteManager implements SQLiteManager_C
 
     @Override
     public ArrayList<Object> selectAll(String where) {
+
+        accessDB(OPEN_MODE);
+
+        Cursor c = sqlite.rawQuery(
+
+                "SELECT "
+                        + "		  " + UserContract.ID_USER  + "					,"
+                        + "		  " + UserContract.NAME     + "					,"
+                        + "		  " + UserContract.ID_PHOTO + "					"
+                        + " FROM " + UserContract.TABLE_NAME
+                        + " " + where, null);
+
+        User user;
+
+        ArrayList<Object> listUsers = new ArrayList<>();
+        while(c.moveToNext()) {
+
+            user = new User();
+
+            user.setId(         c.getInt(0));
+            user.setName(       c.getString(1));
+            user.setId_photo(   c.getInt(2));
+
+            listUsers.add(user);
+
+        }
+
+        c.close();
+
+        accessDB(CLOSE_MODE);
+
+        if(!listUsers.isEmpty()){
+
+            for(int i = 0; i < listUsers.size(); i++){
+
+                User u = (User) listUsers.get(i);
+
+                Photo p = new Photo();
+                p.setId(u.getId_photo());
+                p = (Photo) sqlPhoto.select(p);
+                u.setAvatar(p);
+
+                listUsers.set(i, u);
+
+            }
+
+            return listUsers;
+        }
+
         return null;
+
     }
 
     @Override

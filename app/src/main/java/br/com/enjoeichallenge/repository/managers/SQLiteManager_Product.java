@@ -45,21 +45,21 @@ public class SQLiteManager_Product extends SQLiteManager implements SQLiteManage
 
         accessDB(OPEN_MODE);
 
-        ContentValues valores = new ContentValues();
+        ContentValues values = new ContentValues();
 
-        valores.put(ProductContract.ID_PRODUCT		            , 	product.getId()        	                );
-        valores.put(ProductContract.DISCOUNT_PERCENTAGE	        , 	product.getDiscount_percentage()	    );
-        valores.put(ProductContract.TITLE		                , 	product.getTitle()	                    );
-        valores.put(ProductContract.PRICE	                    , 	product.getPrice()	                    );
-        valores.put(ProductContract.ORIGINAL_PRICE		        , 	product.getOriginal_price()	            );
-        valores.put(ProductContract.SIZE		                , 	product.getSize()	                    );
-        valores.put(ProductContract.LIKES_COUNT		            , 	product.getLikes_count()	            );
-        valores.put(ProductContract.MAXIMUM_INSTALLMENT		    , 	product.getMaximum_installment()	    );
-        valores.put(ProductContract.PUBLISHED_COMMENTS_COUNT    , 	product.getPublished_comments_count()   );
-        valores.put(ProductContract.CONTENT	    	            , 	product.getContent()	                );
-        valores.put(ProductContract.ID_USER 		            , 	product.getUser().getId()	            );
+        values.put(ProductContract.ID_PRODUCT		            , 	product.getId()        	                );
+        values.put(ProductContract.DISCOUNT_PERCENTAGE	        , 	product.getDiscount_percentage()	    );
+        values.put(ProductContract.TITLE		                , 	product.getTitle()	                    );
+        values.put(ProductContract.PRICE	                    , 	product.getPrice()	                    );
+        values.put(ProductContract.ORIGINAL_PRICE		        , 	product.getOriginal_price()	            );
+        values.put(ProductContract.SIZE		                    , 	product.getSize()	                    );
+        values.put(ProductContract.LIKES_COUNT		            , 	product.getLikes_count()	            );
+        values.put(ProductContract.MAXIMUM_INSTALLMENT		    , 	product.getMaximum_installment()	    );
+        values.put(ProductContract.PUBLISHED_COMMENTS_COUNT     , 	product.getPublished_comments_count()   );
+        values.put(ProductContract.CONTENT	    	            , 	product.getContent()	                );
+        values.put(ProductContract.ID_USER 		                , 	product.getUser().getId()	            );
 
-        long id_product = sqlite.insert(ProductContract.TABLE_NAME, null, valores);
+        long id_product = sqlite.insert(ProductContract.TABLE_NAME, null, values);
 
         accessDB(CLOSE_MODE);
 
@@ -162,7 +162,93 @@ public class SQLiteManager_Product extends SQLiteManager implements SQLiteManage
 
     @Override
     public ArrayList<Object> selectAll(String where) {
+
+        accessDB(OPEN_MODE);
+
+        Cursor c = sqlite.rawQuery(
+
+                "SELECT "
+                        + "		  " + ProductContract.ID_PRODUCT                + "					,"
+                        + "		  " + ProductContract.DISCOUNT_PERCENTAGE       + "					,"
+                        + "		  " + ProductContract.TITLE                     + "					,"
+                        + "		  " + ProductContract.PRICE                     + "					,"
+                        + "		  " + ProductContract.ORIGINAL_PRICE            + "					,"
+                        + "		  " + ProductContract.SIZE                      + "					,"
+                        + "		  " + ProductContract.LIKES_COUNT               + "					,"
+                        + "		  " + ProductContract.MAXIMUM_INSTALLMENT       + "					,"
+                        + "		  " + ProductContract.PUBLISHED_COMMENTS_COUNT  + "					,"
+                        + "		  " + ProductContract.CONTENT                   + "					,"
+                        + "		  " + ProductContract.ID_USER                   + "					"
+                        + " FROM " + ProductContract.TABLE_NAME
+                        + " " + where, null);
+
+        Product product;
+
+        ArrayList<Object> listProducts = new ArrayList<>();
+        while(c.moveToNext()) {
+
+            product = new Product();
+
+            product.setId(                          c.getInt(0));
+            product.setDiscount_percentage(         c.getDouble(1));
+            product.setTitle(                       c.getString(2));
+            product.setPrice(                       c.getDouble(3));
+            product.setOriginal_price(              c.getDouble(4));
+            product.setSize(                        c.getString(5));
+            product.setLikes_count(                 c.getInt(6));
+            product.setMaximum_installment(         c.getInt(7));
+            product.setPublished_comments_count(    c.getInt(8));
+            product.setContent(                     c.getString(9));
+            product.setId_user(                     c.getInt(10));
+
+            listProducts.add(product);
+
+        }
+
+        c.close();
+
+        accessDB(CLOSE_MODE);
+
+        if(!listProducts.isEmpty()){
+
+            for(int i = 0; i < listProducts.size(); i++){
+
+                Product p = (Product) listProducts.get(i);
+
+                // Pegar User
+                User u = new User();
+                u.setId(p.getId_user());
+                u = (User) sqlUser.select(u);
+                p.setUser(u);
+
+                // Pegar Photos
+                ArrayList<Photo> photos = new ArrayList<>();
+
+                String where2 =  "WHERE " + ProductPhotoContract.IDPRODUCT + " = " + p.getId() +
+                        " AND " + ProductPhotoContract.IDUSER + " = " + p.getId_user();
+                ArrayList<Object> ppList = sqlProdPhoto.selectAll(where2);
+
+                for(Object pp : ppList){
+
+                    ProductPhoto productPhoto = (ProductPhoto) pp;
+                    Photo p2 = new Photo();
+
+                    p2.setId(productPhoto.getIdproduct());
+                    p2 = (Photo) sqlPhoto.select(p2);
+                    photos.add(p2);
+                }
+
+                p.setPhotos(photos);
+
+                listProducts.set(i, p);
+
+            }
+
+            return listProducts;
+        }
+
         return null;
+
     }
 
     @Override

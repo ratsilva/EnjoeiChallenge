@@ -2,6 +2,7 @@ package br.com.enjoeichallenge.repository.managers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 import java.util.ArrayList;
 
@@ -22,13 +23,13 @@ public class SQLiteManager_ProductPhoto extends SQLiteManager implements SQLiteM
 
         accessDB(OPEN_MODE);
 
-        ContentValues valores = new ContentValues();
+        ContentValues values = new ContentValues();
 
-        valores.put(ProductPhotoContract.IDPRODUCT		, 	prodPhoto.getIdproduct()        );
-        valores.put(ProductPhotoContract.IDPHOTO		, 	prodPhoto.getIdphoto()	        );
-        valores.put(ProductPhotoContract.IDUSER		    , 	prodPhoto.getIduser()	        );
+        values.put(ProductPhotoContract.IDPRODUCT		, 	prodPhoto.getIdproduct()        );
+        values.put(ProductPhotoContract.IDPHOTO		    , 	prodPhoto.getIdphoto()	        );
+        values.put(ProductPhotoContract.IDUSER		    , 	prodPhoto.getIduser()	        );
 
-        long id_user = sqlite.insert(ProductPhotoContract.TABLE_NAME, null, valores);
+        long id_user = sqlite.insert(ProductPhotoContract.TABLE_NAME, null, values);
 
         accessDB(CLOSE_MODE);
 
@@ -54,7 +55,40 @@ public class SQLiteManager_ProductPhoto extends SQLiteManager implements SQLiteM
 
     @Override
     public ArrayList<Object> selectAll(String where) {
-        return null;
+
+        accessDB(OPEN_MODE);
+
+        Cursor c = sqlite.rawQuery(
+
+                "SELECT "
+                        + "		  " + ProductPhotoContract.IDPRODUCT        + "					,"
+                        + "		  " + ProductPhotoContract.IDUSER           + "					,"
+                        + "		  " + ProductPhotoContract.IDPHOTO         + "					"
+                        + " FROM " + ProductPhotoContract.TABLE_NAME
+                        + " " + where, null);
+
+        ProductPhoto prodPhoto;
+
+        ArrayList<Object> listProdPhoto = new ArrayList<>();
+        while(c.moveToNext()) {
+
+            prodPhoto = new ProductPhoto();
+
+            prodPhoto.setIdproduct(     c.getInt(0));
+            prodPhoto.setIduser(        c.getInt(1));
+            prodPhoto.setIdphoto(       c.getInt(2));
+
+            listProdPhoto.add(prodPhoto);
+
+        }
+
+        c.close();
+
+        accessDB(CLOSE_MODE);
+
+        if(listProdPhoto.isEmpty()) 	return null;
+        else					        return listProdPhoto;
+
     }
 
     @Override
