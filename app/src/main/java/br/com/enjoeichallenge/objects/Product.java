@@ -1,12 +1,13 @@
 package br.com.enjoeichallenge.objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Product {
 
-    private int id;
+    private long id;
     private double discount_percentage;
-    private List<Photo> photos;
+    private ArrayList<Photo> photos;
     private String title;
     private double price;
     private double original_price;
@@ -18,11 +19,11 @@ public class Product {
     private User user;
     private long id_user;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -34,11 +35,11 @@ public class Product {
         this.discount_percentage = discount_percentage;
     }
 
-    public List<Photo> getPhotos() {
+    public ArrayList<Photo> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(List<Photo> photos) {
+    public void setPhotos(ArrayList<Photo> photos) {
         this.photos = photos;
     }
 

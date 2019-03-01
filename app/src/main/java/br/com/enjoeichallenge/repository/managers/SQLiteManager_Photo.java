@@ -48,9 +48,9 @@ public class SQLiteManager_Photo extends SQLiteManager implements SQLiteManager_
     }
 
     @Override
-    public Object select(long id) {
+    public Object select(Object obj) {
 
-        Photo photo = null;
+        Photo photo = (Photo) obj;
 
         accessDB(OPEN_MODE);
 
@@ -62,8 +62,9 @@ public class SQLiteManager_Photo extends SQLiteManager implements SQLiteManager_
                         + "		  " + PhotoContract.CROP            + "					,"
                         + "		  " + PhotoContract.GRAVITY         + "					"
                         + " FROM " + PhotoContract.TABLE_NAME
-                        + " WHERE " + PhotoContract.ID_PHOTO + " = " + id, null);
+                        + " WHERE " + PhotoContract.ID_PHOTO + " = " + photo.getId(), null);
 
+        photo = null;
 
         if(c.moveToNext()) {
 
@@ -85,18 +86,21 @@ public class SQLiteManager_Photo extends SQLiteManager implements SQLiteManager_
     }
 
     @Override
-    public ArrayList<Object> selectAll() {
+    public ArrayList<Object> selectAll(String where) {
         return null;
     }
 
     @Override
     public long save(Object obj) {
 
-        Photo photo = (Photo) obj;
         long id_photo;
 
-        if(select(photo.getId()) != null) 	id_photo = update(obj);
-        else						        id_photo = insert(obj);
+        if(select(obj) != null){
+            id_photo = update(obj);
+        }
+        else{
+            id_photo = insert(obj);
+        }
 
         return id_photo;
     }

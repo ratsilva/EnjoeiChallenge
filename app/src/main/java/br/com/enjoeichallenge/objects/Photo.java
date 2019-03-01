@@ -2,7 +2,7 @@ package br.com.enjoeichallenge.objects;
 
 public class Photo {
 
-    private int id;
+    private long id;
     private String public_id;
     private String crop;
     private String gravity;
@@ -31,11 +31,11 @@ public class Photo {
         this.gravity = gravity;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 }

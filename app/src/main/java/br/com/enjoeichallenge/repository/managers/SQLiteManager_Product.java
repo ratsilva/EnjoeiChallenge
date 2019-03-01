@@ -2,24 +2,28 @@ package br.com.enjoeichallenge.repository.managers;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.util.Log;
+import android.database.Cursor;
 
 import java.util.ArrayList;
 
 import br.com.enjoeichallenge.objects.Photo;
 import br.com.enjoeichallenge.objects.Product;
 import br.com.enjoeichallenge.objects.ProductPhoto;
+import br.com.enjoeichallenge.objects.User;
 import br.com.enjoeichallenge.objects.contracts.ProductContract;
+import br.com.enjoeichallenge.objects.contracts.ProductPhotoContract;
 
 public class SQLiteManager_Product extends SQLiteManager implements SQLiteManager_CRUD {
 
-    SQLiteManager_Photo sqlPhoto;
-    SQLiteManager_ProductPhoto sqlProdPhoto;
+    private SQLiteManager_Photo sqlPhoto;
+    private SQLiteManager_ProductPhoto sqlProdPhoto;
+    private SQLiteManager_User sqlUser;
 
     public SQLiteManager_Product(Context ctx_) {
         super(ctx_);
         sqlPhoto = new SQLiteManager_Photo(ctx_);
         sqlProdPhoto = new SQLiteManager_ProductPhoto(ctx_);
+        sqlUser = new SQLiteManager_User(ctx_);
     }
 
 
@@ -77,22 +81,96 @@ public class SQLiteManager_Product extends SQLiteManager implements SQLiteManage
     }
 
     @Override
-    public Object select(long id) {
-        return null;
+    public Object select(Object obj) {
+
+        Product product = (Product) obj;
+
+        accessDB(OPEN_MODE);
+
+        Cursor c = sqlite.rawQuery(
+
+                "SELECT "
+                        + "		  " + ProductContract.ID_PRODUCT                + "					,"
+                        + "		  " + ProductContract.DISCOUNT_PERCENTAGE       + "					,"
+                        + "		  " + ProductContract.TITLE                     + "					,"
+                        + "		  " + ProductContract.PRICE                     + "					,"
+                        + "		  " + ProductContract.ORIGINAL_PRICE            + "					,"
+                        + "		  " + ProductContract.SIZE                      + "					,"
+                        + "		  " + ProductContract.LIKES_COUNT               + "					,"
+                        + "		  " + ProductContract.MAXIMUM_INSTALLMENT       + "					,"
+                        + "		  " + ProductContract.PUBLISHED_COMMENTS_COUNT  + "					,"
+                        + "		  " + ProductContract.CONTENT                   + "					,"
+                        + "		  " + ProductContract.ID_USER                   + "					"
+                        + " FROM " + ProductContract.TABLE_NAME
+                        + " WHERE " + ProductContract.ID_PRODUCT + " = " + product.getId()
+                        + " AND " + ProductContract.ID_USER + " = " + product.getId_user(), null);
+
+        product = null;
+
+        if(c.moveToNext()) {
+
+            product = new Product();
+
+            product.setId(                          c.getInt(0));
+            product.setDiscount_percentage(         c.getDouble(1));
+            product.setTitle(                       c.getString(2));
+            product.setPrice(                       c.getDouble(3));
+            product.setOriginal_price(              c.getDouble(4));
+            product.setSize(                        c.getString(5));
+            product.setLikes_count(                 c.getInt(6));
+            product.setMaximum_installment(         c.getInt(7));
+            product.setPublished_comments_count(    c.getInt(8));
+            product.setContent(                     c.getString(9));
+            product.setId_user(                     c.getInt(10));
+
+        }
+
+        c.close();
+
+        accessDB(CLOSE_MODE);
+
+        if(product != null){
+            // Pegar User
+            User u = new User();
+            u.setId(product.getId_user());
+            u = (User) sqlUser.select(u);
+            product.setUser(u);
+
+            // Pegar Photos
+            ArrayList<Photo> photos = new ArrayList<>();
+
+            String where =  "WHERE " + ProductPhotoContract.IDPRODUCT + " = " + product.getId() +
+                            " AND " + ProductPhotoContract.IDUSER + " = " + product.getId_user();
+            ArrayList<Object> ppList = sqlProdPhoto.selectAll(where);
+
+            for(Object pp : ppList){
+
+                ProductPhoto productPhoto = (ProductPhoto) pp;
+                Photo p = new Photo();
+
+                p.setId(productPhoto.getIdproduct());
+                p = (Photo) sqlPhoto.select(p);
+                photos.add(p);
+            }
+
+            product.setPhotos(photos);
+        }
+
+        return product;
+
     }
 
     @Override
-    public ArrayList<Object> selectAll() {
+    public ArrayList<Object> selectAll(String where) {
         return null;
     }
 
     @Override
     public long save(Object obj) {
 
-        Product product = (Product) obj;
         long id_product;
 
-        if(select(product.getId()) != null){
+        if(select(obj) != null){
             id_product = update(obj);
         }
         else{
