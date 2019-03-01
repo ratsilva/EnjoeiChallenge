@@ -14,7 +14,7 @@ public interface SQLiteManager_CRUD {
     long update(Object obj);
 
     // Select
-    Object select(int id);
+    Object select(long id);
     ArrayList<Object> selectAll();
 
     // Auxiliares

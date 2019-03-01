@@ -16,6 +16,7 @@ public class Product {
     private int published_comments_count;
     private String content;
     private User user;
+    private long id_user;
 
     public int getId() {
         return id;
@@ -111,6 +112,14 @@ public class Product {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public long getId_user() {
+        return id_user;
+    }
+
+    public void setId_user(long id_user) {
+        this.id_user = id_user;
     }
 
     public class ProductJson{

@@ -6,6 +6,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import br.com.enjoeichallenge.objects.Photo;
+import br.com.enjoeichallenge.objects.User;
 import br.com.enjoeichallenge.repository.managers.SQLiteManager_Photo;
 import br.com.enjoeichallenge.repository.managers.SQLiteManager_Product;
 import br.com.enjoeichallenge.repository.managers.SQLiteManager_User;
@@ -52,20 +53,13 @@ public class ProductController extends Controller {
 
                 for(Product p : prodJson.getProduts()){
 
-                    // Inserir photo do usuário
-                    long id_photo = sqlPhoto.save(p.getUser().getAvatar());
-
-                    // Inserir usuário
-                    p.getUser().setId_photo(id_photo);
-                    long id_user = sqlUser.save(p.getUser());
+                    // Usuário
+                    User user = p.getUser();
+                    long id_user = sqlUser.save(user);
 
                     // Inserir produto
-                    long id_product = sqlProduct.save(p);
-                    for(Photo photo : p.getPhotos()){
-                        sqlPhoto.save(photo);
-                    }
-
-                    //Log.v("database", "inserindo produto: " + p.getId());
+                    p.setId_user(id_user);
+                    sqlProduct.save(p);
 
                 }
 

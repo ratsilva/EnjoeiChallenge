@@ -10,5 +10,4 @@ public class PhotoContract {
     public static final String PUBLIC_ID     = "public_id";
     public static final String CROP          = "crop";
     public static final String GRAVITY       = "gravity";
-    public static final String ID_PRODUCT    = "id_product";
 }

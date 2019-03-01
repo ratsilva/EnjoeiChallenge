@@ -5,15 +5,17 @@ import android.database.sqlite.SQLiteDatabase;
 
 import br.com.enjoeichallenge.objects.contracts.PhotoContract;
 import br.com.enjoeichallenge.objects.contracts.ProductContract;
+import br.com.enjoeichallenge.objects.contracts.ProductPhotoContract;
 import br.com.enjoeichallenge.objects.contracts.UserContract;
 
 public class SQLiteRepository{
 
     private static final String[] SCRIPT_DATABASE_CREATE = new String[] {
 
-            "DROP TABLE IF EXISTS " + ProductContract.TABLE_NAME + ";" 	,
-            "DROP TABLE IF EXISTS " + PhotoContract.TABLE_NAME + ";" 	,
-            "DROP TABLE IF EXISTS " + UserContract.TABLE_NAME + ";" 	,
+            "DROP TABLE IF EXISTS " + ProductContract.TABLE_NAME            + ";" 	,
+            "DROP TABLE IF EXISTS " + PhotoContract.TABLE_NAME              + ";" 	,
+            "DROP TABLE IF EXISTS " + UserContract.TABLE_NAME               + ";" 	,
+            "DROP TABLE IF EXISTS " + ProductPhotoContract.TABLE_NAME       + ";" 	,
 
             "	CREATE TABLE '" + ProductContract.TABLE_NAME + "' (	"	+
             "	    '" + ProductContract.ID_PRODUCT                     + "'  integer 	,	"	+
@@ -41,8 +43,14 @@ public class SQLiteRepository{
                     "	    '" + PhotoContract.ID_PHOTO         + "'  integer PRIMARY KEY AUTOINCREMENT	,	"	+
                     "	    '" + PhotoContract.PUBLIC_ID        + "'  text 	                            ,	"	+
                     "	    '" + PhotoContract.CROP             + "'  text 	                            ,	"	+
-                    "	    '" + PhotoContract.GRAVITY          + "'  text 	                            ,	"	+
-                    "	    '" + PhotoContract.ID_PRODUCT       + "'  integer 		                    "	+
+                    "	    '" + PhotoContract.GRAVITY          + "'  text 	                            	"	+
+                    "	);	",
+
+            "	CREATE TABLE '" + ProductPhotoContract.TABLE_NAME + "' (	"	+
+                    "	    '" + ProductPhotoContract.IDPRODUCT         + "'  integer	,	"	+
+                    "	    '" + ProductPhotoContract.IDPHOTO           + "'  integer 	,   "	+
+                    "	    '" + ProductPhotoContract.IDUSER            + "'  integer 	,   "	+
+                    "	    PRIMARY KEY (" + ProductPhotoContract.IDPRODUCT + ", " + ProductPhotoContract.IDUSER + ", " + ProductPhotoContract.IDPHOTO + ")"	+
                     "	);	"
 
     };

@@ -2,6 +2,7 @@ package br.com.enjoeichallenge.repository.managers;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 
 import java.util.ArrayList;
 
@@ -21,14 +22,13 @@ public class SQLiteManager_Photo extends SQLiteManager implements SQLiteManager_
 
         accessDB(OPEN_MODE);
 
-        ContentValues valores = new ContentValues();
+        ContentValues values = new ContentValues();
 
-        valores.put(PhotoContract.PUBLIC_ID		, 	photo.getPublic_id()	);
-        valores.put(PhotoContract.CROP		    , 	photo.getCrop()	        );
-        valores.put(PhotoContract.GRAVITY		, 	photo.getGravity()	    );
-        valores.put(PhotoContract.ID_PRODUCT	, 	photo.getId_product()	);
+        values.put(PhotoContract.PUBLIC_ID		, 	photo.getPublic_id()	);
+        values.put(PhotoContract.CROP		    , 	photo.getCrop()	        );
+        values.put(PhotoContract.GRAVITY		, 	photo.getGravity()	    );
 
-        long id_photo = sqlite.insert(PhotoContract.TABLE_NAME, null, valores);
+        long id_photo = sqlite.insert(PhotoContract.TABLE_NAME, null, values);
 
         accessDB(CLOSE_MODE);
 
@@ -42,12 +42,46 @@ public class SQLiteManager_Photo extends SQLiteManager implements SQLiteManager_
 
     @Override
     public long update(Object obj) {
+
+
         return 0;
     }
 
     @Override
-    public Object select(int id) {
-        return null;
+    public Object select(long id) {
+
+        Photo photo = null;
+
+        accessDB(OPEN_MODE);
+
+        Cursor c = sqlite.rawQuery(
+
+                "SELECT "
+                        + "		  " + PhotoContract.ID_PHOTO        + "					,"
+                        + "		  " + PhotoContract.PUBLIC_ID       + "					,"
+                        + "		  " + PhotoContract.CROP            + "					,"
+                        + "		  " + PhotoContract.GRAVITY         + "					"
+                        + " FROM " + PhotoContract.TABLE_NAME
+                        + " WHERE " + PhotoContract.ID_PHOTO + " = " + id, null);
+
+
+        if(c.moveToNext()) {
+
+            photo = new Photo();
+
+            photo.setId(c.getInt(0));
+            photo.setPublic_id(c.getString(1));
+            photo.setCrop(c.getString(2));
+            photo.setGravity(c.getString(3));
+
+        }
+
+        c.close();
+
+        accessDB(CLOSE_MODE);
+
+        return photo;
+
     }
 
     @Override

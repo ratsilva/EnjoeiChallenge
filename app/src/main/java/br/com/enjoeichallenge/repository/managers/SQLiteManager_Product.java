@@ -6,13 +6,20 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import br.com.enjoeichallenge.objects.Photo;
 import br.com.enjoeichallenge.objects.Product;
+import br.com.enjoeichallenge.objects.ProductPhoto;
 import br.com.enjoeichallenge.objects.contracts.ProductContract;
 
 public class SQLiteManager_Product extends SQLiteManager implements SQLiteManager_CRUD {
 
+    SQLiteManager_Photo sqlPhoto;
+    SQLiteManager_ProductPhoto sqlProdPhoto;
+
     public SQLiteManager_Product(Context ctx_) {
         super(ctx_);
+        sqlPhoto = new SQLiteManager_Photo(ctx_);
+        sqlProdPhoto = new SQLiteManager_ProductPhoto(ctx_);
     }
 
 
@@ -20,6 +27,17 @@ public class SQLiteManager_Product extends SQLiteManager implements SQLiteManage
     public long insert(Object obj) {
 
         Product product = (Product) obj;
+
+        for(Photo photo : product.getPhotos()){
+
+            long id_photo = sqlPhoto.save(photo);
+            ProductPhoto pp = new ProductPhoto();
+            pp.setIdphoto(id_photo);
+            pp.setIdproduct(product.getId());
+            pp.setIduser(product.getId_user());
+            sqlProdPhoto.save(pp);
+
+        }
 
         accessDB(OPEN_MODE);
 
@@ -52,11 +70,14 @@ public class SQLiteManager_Product extends SQLiteManager implements SQLiteManage
 
     @Override
     public long update(Object obj) {
-        return 0;
+
+        Product product = (Product) obj;
+
+        return product.getId();
     }
 
     @Override
-    public Object select(int id) {
+    public Object select(long id) {
         return null;
     }
 
@@ -73,11 +94,9 @@ public class SQLiteManager_Product extends SQLiteManager implements SQLiteManage
 
         if(select(product.getId()) != null){
             id_product = update(obj);
-            Log.v("saving", "atualizando produto: " + product.getId());
         }
         else{
             id_product = insert(obj);
-            Log.v("saving", "inserindo produto: " + product.getId());
         }
 
         return id_product;
