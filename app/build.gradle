@@ -38,6 +38,10 @@ dependencies {
     // Cloudinary
     implementation group: 'com.cloudinary', name: 'cloudinary-android', version: '1.24.0'
 
+    // ButterKnife
+    implementation 'com.jakewharton:butterknife:10.1.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
