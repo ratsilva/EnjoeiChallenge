@@ -7,5 +7,11 @@
     <color name="cinza_escuro">#5B5855</color>
     <color name="cinza">#7D7A77</color>
     <color name="rosa">#F77274</color>
+    <color name="background_app_color">#FFFFFF</color>
+
+    <!-- ErrorFragment -->
+    <color name="btn_border_color">#EDEAE8</color>
+    <color name="btn_text_color">#F77274</color>
+
 
 </resources>
