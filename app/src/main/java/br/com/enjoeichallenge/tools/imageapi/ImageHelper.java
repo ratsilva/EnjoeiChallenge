@@ -20,7 +20,7 @@ public class ImageHelper {
 
     public String getImageURL(String public_id, String crop, String gravity){
 
-        Map config = new HashMap();
+        Map<String, String> config = new HashMap<String, String>();
         config.put("cloud_name", "demo");
         MediaManager.init(ctx, config);
 

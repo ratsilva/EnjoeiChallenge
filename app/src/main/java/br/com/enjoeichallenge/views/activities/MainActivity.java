@@ -1,10 +1,11 @@
 package br.com.enjoeichallenge.views.activities;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
 import br.com.enjoeichallenge.R;
+import br.com.enjoeichallenge.views.fragments.ErrorFragment;
 import br.com.enjoeichallenge.views.fragments.MainFragment;
 
 public class MainActivity extends FragmentActivity {
@@ -25,7 +26,7 @@ public class MainActivity extends FragmentActivity {
 
 
         // Controle de fragment
-        //carregaFragment(PRODUCTLIST_FRAGMENT);
+        carregaFragment(ERROR_FRAGMENT);
         //Verificar se precisa abrir o fragment de conexão
     }
 
@@ -56,7 +57,7 @@ public class MainActivity extends FragmentActivity {
                 fragment = new MainFragment();
                 break;
             case ERROR_FRAGMENT:
-                fragment = new MainFragment();
+                fragment = new ErrorFragment();
                 break;
             default:
                 fragment = new MainFragment();

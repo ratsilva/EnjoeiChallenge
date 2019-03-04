@@ -9,38 +9,42 @@
     android:gravity="center">
 
     <ImageView
-        android:id="@+id/view_error_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/fragment_error_img"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
-        android:paddingTop="40dip"
-        app:srcCompat="@drawable/ic_camera" />
+        android:src="@drawable/error" />
 
     <TextView
-        android:id="@+id/view_error_title"
+        android:id="@+id/fragment_error_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16.0sp"
         android:textColor="@color/cinza_escuro"
+        android:text="@string/fragment_error_title"
         android:gravity="center"
+        android:fontFamily="@font/proximanovasemibold"
         android:layout_marginTop="36.0dip"
         android:lineSpacingExtra="8.0dip" />
 
-
     <TextView
-        android:textSize="16.0sp"
-        android:textColor="@color/cinza"
-        android:gravity="center"
-        android:id="@+id/error_msg"
+        android:id="@+id/fragment_error_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="16.0sp"
+        android:textColor="@color/cinza"
+        android:text="@string/fragment_error_msg"
+        android:gravity="center"
+        android:fontFamily="@font/proximanovalight"
         android:layout_marginTop="10.0dip" />
 
     <Button
         android:id="@+id/error_action"
-        android:visibility="visible"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/fragment_error_btn"
+        android:visibility="visible"
+        android:fontFamily="@font/proximanovasemibold"
         android:layout_marginTop="33.0dip"
         android:minWidth="146.0dip"/>
 
