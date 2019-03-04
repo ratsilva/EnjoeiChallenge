@@ -1,4 +1,4 @@
-package br.com.enjoeichallenge.repository.managers;
+package br.com.enjoeichallenge.models;
 
 import java.util.ArrayList;
 

@@ -1,10 +1,10 @@
-package br.com.enjoeichallenge.repository.managers;
+package br.com.enjoeichallenge.models;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
-import br.com.enjoeichallenge.repository.util.SQLiteLockThread;
-import br.com.enjoeichallenge.repository.util.SQLiteRepository;
+import br.com.enjoeichallenge.models.util.SQLiteLockThread;
+import br.com.enjoeichallenge.models.util.SQLiteRepository;
 
 public class SQLiteManager {
 

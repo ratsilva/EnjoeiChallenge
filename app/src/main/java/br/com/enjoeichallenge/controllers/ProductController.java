@@ -5,11 +5,10 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import br.com.enjoeichallenge.objects.Photo;
 import br.com.enjoeichallenge.objects.User;
-import br.com.enjoeichallenge.repository.managers.SQLiteManager_Photo;
-import br.com.enjoeichallenge.repository.managers.SQLiteManager_Product;
-import br.com.enjoeichallenge.repository.managers.SQLiteManager_User;
+import br.com.enjoeichallenge.models.SQLiteManager_Photo;
+import br.com.enjoeichallenge.models.SQLiteManager_Product;
+import br.com.enjoeichallenge.models.SQLiteManager_User;
 import br.com.enjoeichallenge.tools.restapi.HTTPRequest_Product;
 import br.com.enjoeichallenge.objects.Product;
 import retrofit2.Call;
@@ -47,6 +46,8 @@ public class ProductController extends Controller {
 
             @Override
             public void onResponse(Call<Product.ProductJson> call, Response<Product.ProductJson> response) {
+
+                // Deletar infos do BD
 
                 // pegar a resposta
                 Product.ProductJson prodJson = response.body();

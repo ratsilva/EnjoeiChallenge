@@ -1,4 +1,4 @@
-package br.com.enjoeichallenge.repository.util;
+package br.com.enjoeichallenge.models.util;
 
 public class SQLiteLockThread {
 
