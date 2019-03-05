@@ -31,13 +31,13 @@
         android:layout_height="match_parent"
         android:paddingRight="10dp"
         android:paddingLeft="10dp"
-        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <LinearLayout
         android:id="@+id/activity_main_fragment_error"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:visibility="gone"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
 

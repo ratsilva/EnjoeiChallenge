@@ -13,5 +13,7 @@
     <color name="btn_border_color">#EDEAE8</color>
     <color name="btn_text_color">#F77274</color>
 
+    <color name="selected_icon">#F77274</color>
+    <color name="unselected_icon">#5B5855</color>
 
 </resources>

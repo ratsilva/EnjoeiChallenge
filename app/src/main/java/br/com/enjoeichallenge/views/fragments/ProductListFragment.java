@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import br.com.enjoeichallenge.R;
 import br.com.enjoeichallenge.controllers.ProductController;
 import br.com.enjoeichallenge.objects.Product;
+import br.com.enjoeichallenge.views.activities.MainActivity;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -19,6 +22,8 @@ public class ProductListFragment extends Fragment {
     private Unbinder unbinder;
     ProductController productController;
     ArrayList<Object> listProdutos;
+
+    @BindView(R.id.fragment_productlist_swipelayout) SwipeRefreshLayout swipeLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +51,6 @@ public class ProductListFragment extends Fragment {
         // Se não existem produtos no BD por falta de conexão
         if(listProdutos == null && !okAPI){
 
-            // Carrega ErrorFragment
 
         }
 

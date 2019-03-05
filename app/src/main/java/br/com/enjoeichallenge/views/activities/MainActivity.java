@@ -21,6 +21,7 @@ import br.com.enjoeichallenge.views.fragments.SearchFragment;
 import br.com.enjoeichallenge.views.fragments.UserFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemSelected;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -93,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(2).setIcon(tabIcons[2]);
         tabLayout.getTabAt(3).setIcon(tabIcons[3]);
         tabLayout.getTabAt(4).setIcon(tabIcons[4]);
+
     }
 
 
