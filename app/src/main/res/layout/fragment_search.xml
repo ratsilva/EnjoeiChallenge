@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/view_error_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,46 +8,31 @@
     android:gravity="center">
 
     <ImageView
-        android:id="@+id/fragment_error_img"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/error" />
+        android:src="@drawable/ic_search" />
 
     <TextView
-        android:id="@+id/fragment_error_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16.0sp"
+        android:textSize="30.0sp"
         android:textColor="@color/cinza_escuro"
-        android:text="Search"
+        android:text="@string/fragment_default_title"
         android:gravity="center"
         android:fontFamily="@font/proximanovasemibold"
         android:layout_marginTop="36.0dip"
         android:lineSpacingExtra="8.0dip" />
 
     <TextView
-        android:id="@+id/fragment_error_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="16.0sp"
+        android:textSize="20.0sp"
         android:textColor="@color/cinza"
-        android:text="@string/fragment_error_msg"
+        android:text="@string/fragment_search_msg"
         android:gravity="center"
         android:fontFamily="@font/proximanovalight"
         android:layout_marginTop="10.0dip" />
 
-    <Button
-        android:id="@+id/fragment_error_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fragment_error_btn"
-        android:visibility="visible"
-        android:background="@drawable/shape_btn"
-        android:fontFamily="@font/font_proximanova"
-        android:textAllCaps="false"
-        android:textColor="@color/btn_text_color"
-        android:layout_marginTop="33.0dip"
-        android:minWidth="146.0dip"/>
 
 </LinearLayout>
