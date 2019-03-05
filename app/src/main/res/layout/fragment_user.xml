@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:textSize="16.0sp"
         android:textColor="@color/cinza_escuro"
-        android:text="@string/fragment_error_title"
+        android:text="User"
         android:gravity="center"
         android:fontFamily="@font/proximanovasemibold"
         android:layout_marginTop="36.0dip"

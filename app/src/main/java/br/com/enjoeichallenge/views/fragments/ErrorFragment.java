@@ -22,6 +22,11 @@ public class ErrorFragment extends Fragment {
     @BindView(R.id.fragment_error_btn) Button btnError;
 
     @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_error, container, false);
         unbinder = ButterKnife.bind(this, view);

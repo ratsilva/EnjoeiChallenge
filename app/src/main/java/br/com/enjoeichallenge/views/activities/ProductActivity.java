@@ -18,13 +18,7 @@ public class ProductActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        productController = new ProductController(this);
-        carregaProdutos();
-
     }
 
-    public void carregaProdutos(){
-        productController.requestProducts();
-    }
 
 }

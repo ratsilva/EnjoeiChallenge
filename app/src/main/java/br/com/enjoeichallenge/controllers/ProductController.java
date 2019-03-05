@@ -36,9 +36,9 @@ public class ProductController extends Controller {
         sqlUser = new SQLiteManager_User(ctx);
     }
 
-    public void requestProducts(){
+    public boolean requestProductsAPI(){
 
-        if(!testConnection()) return;
+        if(!testConnection()) return false;
 
         Call<Product.ProductJson> listProducts = httpProduct.getProducts();
 
@@ -73,6 +73,12 @@ public class ProductController extends Controller {
             }
         });
 
+        return true;
+
+    }
+
+    public ArrayList<Object> getListProducts(){
+        return sqlProduct.selectAll("");
     }
 
 }
