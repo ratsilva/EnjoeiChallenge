@@ -31,15 +31,6 @@ import butterknife.OnItemSelected;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final int PRODUCTLIST_FRAGMENT  = 0;
-    private final int SEARCH_FRAGMENT       = 1;
-    private final int CAMERA_FRAGMENT       = 2;
-    private final int MAIL_FRAGMENT         = 3;
-    private final int USER_FRAGMENT         = 4;
-    private final int ERROR_FRAGMENT        = 5;
-
-    private int ACTIVE_FRAGMENT;
-
     private int[] tabIcons = {
             R.drawable.ic_home,
             R.drawable.ic_search,

@@ -9,6 +9,7 @@
     tools:context=".views.activities.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/activity_main_appBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -33,6 +34,7 @@
         android:layout_marginLeft="5dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="5dp"
+        android:layout_above="@+id/activity_main_appBar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 </RelativeLayout>

@@ -19,13 +19,17 @@ public class ImageHelper {
         this.ctx = ctx_;
     }
 
-    public String getImageURL(String public_id, String crop, String gravity, int width, int height){
+    public String getImageURL(String public_id, String crop, String gravity, int width, int height, boolean user){
 
         Transformation tr = new Transformation();
         tr.crop(crop);
         tr.gravity(gravity);
-        //tr.width(width);
-        //tr.height(height);
+        tr.width(width);
+        tr.height(height);
+
+        if(user){
+            tr.radius("max");
+        }
 
         String url = MediaManager.get().url().transformation(tr).generate(public_id + ".jpg");
 

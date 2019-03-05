@@ -69,7 +69,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
         holder.title            .setText(currentProduct.getTitle());
 
-        holder.price            .setText("R$ " + currentProduct.getPrice());
+        holder.price            .setText("R$ " + (int) currentProduct.getPrice());
 
         if(currentProduct.getSize() != null){
             holder.size             .setVisibility(View.VISIBLE);
@@ -79,13 +79,33 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         holder.likes            .setText("" + currentProduct.getLikes_count());
 
         Photo productPhoto = currentProduct.getPhotos().get(0);
-        String urlPhotoOne = holder.imgHelper.getImageURL(productPhoto.getPublic_id(), productPhoto.getCrop(), productPhoto.getGravity(), 165, 196);
+        String urlPhotoOne = holder.imgHelper.getImageURL(productPhoto.getPublic_id(), productPhoto.getCrop(), productPhoto.getGravity(), 350, 500, false);
         holder.imgHelper.loadImage(urlPhotoOne, R.drawable.progress_image, holder.productPhoto);
 
         Photo userPhoto = currentProduct.getUser().getAvatar();
-        String urlUserPhoto = holder.imgHelper.getImageURL(userPhoto.getPublic_id(), userPhoto.getCrop(), userPhoto.getGravity(), 30, 30);
+        String urlUserPhoto = holder.imgHelper.getImageURL(userPhoto.getPublic_id(), userPhoto.getCrop(), userPhoto.getGravity(), 90, 90, true);
         holder.imgHelper.loadImage(urlUserPhoto, R.drawable.progress_image, holder.userPhoto);
 
+        holder.likesPhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(holder.likesPhoto.isSelected()){
+                    currentProduct.setLikes_count(currentProduct.getLikes_count()-1);
+                    holder.likes.setText("" + currentProduct.getLikes_count());
+                    holder.likes.setTextColor(ctx.getResources().getColor(R.color.cinza));
+                    holder.likesPhoto.setSelected(false);
+
+                }else{
+                    currentProduct.setLikes_count(currentProduct.getLikes_count()+1);
+                    holder.likes.setText("" + currentProduct.getLikes_count());
+                    holder.likes.setTextColor(ctx.getResources().getColor(R.color.rosa));
+                    holder.likesPhoto.setSelected(true);
+                }
+
+
+            }
+        });
 
     }
 
