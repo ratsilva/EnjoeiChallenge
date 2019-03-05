@@ -16,11 +16,23 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/fragment_productlist_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="wrap_content" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_productlist_errorview"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <include
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            layout="@layout/fragment_error"/>
+
+    </LinearLayout>
 
 </LinearLayout>

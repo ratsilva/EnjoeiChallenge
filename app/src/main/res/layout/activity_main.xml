@@ -29,23 +29,10 @@
         android:id="@+id/activity_main_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-
-    <LinearLayout
-        android:id="@+id/activity_main_fragment_error"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
-
-        <include
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        layout="@layout/fragment_error"/>
-
-    </LinearLayout>
 
 </RelativeLayout>

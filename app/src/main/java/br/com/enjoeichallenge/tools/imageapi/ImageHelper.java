@@ -1,6 +1,7 @@
 package br.com.enjoeichallenge.tools.imageapi;
 
 import android.content.Context;
+import android.provider.MediaStore;
 import android.widget.ImageView;
 
 import com.cloudinary.Transformation;
@@ -12,24 +13,19 @@ import java.util.Map;
 
 public class ImageHelper {
 
-    Context ctx;
+    static Context ctx;
 
     public ImageHelper(Context ctx_){
         this.ctx = ctx_;
     }
 
-    public String getImageURL(String public_id, String crop, String gravity){
-
-        Map<String, String> config = new HashMap<String, String>();
-        config.put("cloud_name", "demo");
-        MediaManager.init(ctx, config);
-
+    public String getImageURL(String public_id, String crop, String gravity, int width, int height){
 
         Transformation tr = new Transformation();
         tr.crop(crop);
         tr.gravity(gravity);
-        //tr.width();
-        //tr.height();
+        //tr.width(width);
+        //tr.height(height);
 
         String url = MediaManager.get().url().transformation(tr).generate(public_id + ".jpg");
 
@@ -37,7 +33,7 @@ public class ImageHelper {
 
     }
 
-    public void loadImage(String imageUrl, int placeHolderResourceId, ImageView imageView) {
+    public static void loadImage(String imageUrl, int placeHolderResourceId, ImageView imageView) {
         Picasso.with(ctx)
                 .load(imageUrl)
                 .placeholder(placeHolderResourceId)

@@ -1,11 +1,17 @@
 package br.com.enjoeichallenge.views.activities;
 
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Layout;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.cloudinary.android.MediaManager;
 import com.google.android.material.tabs.TabLayout;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -44,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.activity_main_tabs) TabLayout tabLayout;
     @BindView(R.id.activity_main_viewpager) ViewPager viewPager;
-    @BindView(R.id.activity_main_fragment_error) LinearLayout fragmentError;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,20 +62,15 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         defineTabIcons();
 
-        defineErrorFragment(false);
+        Map config = new HashMap();
+        config.put("cloud_name", "demo");
 
-    }
-
-    public void defineErrorFragment(boolean error){
-
-        // true - Error
-        // false - Normal
-        if(error) {
-            viewPager.setVisibility(View.GONE);
-            fragmentError.setVisibility(View.VISIBLE);
-        }else{
-            viewPager.setVisibility(View.VISIBLE);
-            fragmentError.setVisibility(View.GONE);
+        try {
+            MediaManager.init(this, config);
+        }catch (RuntimeException e){
+            if(e.getMessage().contains("MediaManager is already initialized")){
+                Log.v("cloudinary", "MediaManager já inicializado");
+            }
         }
 
     }
@@ -96,53 +96,5 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.getTabAt(4).setIcon(tabIcons[4]);
 
     }
-
-
-    /**
-     * Recebe o fragment desejado e carrega no FrameLayout da Activity
-     * @param fragmentOption
-     */
-    /*
-    private void commitFragment(int fragmentOption){
-
-        Fragment fragment = null;
-
-        // Define o fragment que será carregado
-        // Se o position passado for inválido, abre o fragment de PRODUCTLIST como default
-        switch (fragmentOption){
-            case PRODUCTLIST_FRAGMENT:
-                fragment = new ProductListFragment();
-                break;
-            case SEARCH_FRAGMENT:
-                fragment = new SearchFragment();
-                break;
-            case CAMERA_FRAGMENT:
-                fragment = new CameraFragment();
-                break;
-            case MAIL_FRAGMENT:
-                fragment = new MailFragment();
-                break;
-            case USER_FRAGMENT:
-                fragment = new UserFragment();
-                break;
-            case ERROR_FRAGMENT:
-                fragment = new ErrorFragment();
-                break;
-            default:
-                fragment = new ProductListFragment();
-                break;
-        }
-
-        if (fragment != null) {
-
-            // Carrega o fragment selecionado no FrameLayout
-            ACTIVE_FRAGMENT = fragmentOption;
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.activity_main_fragment, fragment).commit();
-
-        }
-
-    }
-    */
 
 }

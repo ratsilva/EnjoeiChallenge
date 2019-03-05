@@ -47,6 +47,8 @@ public class ProductController extends Controller {
             @Override
             public void onResponse(Call<Product.ProductJson> call, Response<Product.ProductJson> response) {
 
+                Log.v("onResponse", response.body().toString());
+
                 // Deletar infos do BD
 
                 // pegar a resposta
@@ -63,6 +65,7 @@ public class ProductController extends Controller {
                     sqlProduct.save(p);
 
                 }
+
 
             }
 

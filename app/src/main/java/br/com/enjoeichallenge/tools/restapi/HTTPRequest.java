@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HTTPRequest {
 
-    protected static String BASE_URL = "https://private-anon-1c343166a6-enjoeitest.apiary-mock.com/";
+    protected static String BASE_URL = "https://private-anon-c1891f1f7d-enjoeitest.apiary-mock.com/";
 
     private final Retrofit retrofit;
 

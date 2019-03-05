@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginRight="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_margin="5dp"
+    android:background="@drawable/shape_product_card">
+
+    <ImageView
+        android:id="@+id/fragment_productlist_card_productPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerInside"
+        android:src="@drawable/error"/>
+
+    <TextView
+        android:id="@+id/fragment_productlist_card_discountPorc"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:layout_alignRight="@+id/fragment_productlist_card_productPhoto"
+        android:layout_alignTop="@+id/fragment_productlist_card_productPhoto"
+        android:background="@drawable/shape_discount"
+        android:fontFamily="@font/proximanovaregular"
+        android:textSize="12dp"
+        android:textColor="@android:color/white"
+        android:gravity="center_horizontal|center_vertical"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/fragment_productlist_card_layoutOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="5dp"
+        android:layout_below="@+id/fragment_productlist_card_productPhoto">
+
+        <TextView
+            android:id="@+id/fragment_productlist_card_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/proximanovalight"
+            android:layout_gravity="center_horizontal"
+            android:textSize="16dp"
+            android:textColor="@color/cinza_escuro"
+            android:layout_marginBottom="5dp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/fragment_productlist_card_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/proximanovabold"
+                android:textSize="14dp"
+                android:textColor="@color/rosa"/>
+
+            <TextView
+                android:id="@+id/fragment_productlist_card_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/proximanovalight"
+                android:textSize="14dp"
+                android:textColor="@color/cinza"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/fragment_productlist_card_layoutTwo"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:orientation="horizontal"
+        android:background="@color/divider"
+        android:layout_below="@+id/fragment_productlist_card_layoutOne"/>
+
+    <LinearLayout
+        android:id="@+id/fragment_productlist_card_layoutThree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/fragment_productlist_card_layoutTwo">
+
+        <ImageView
+            android:id="@+id/fragment_productlist_card_userPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:scaleType="centerInside"
+            android:src="@drawable/error" />
+
+        <LinearLayout
+            android:id="@+id/fragment_productlist_card_layoutFour"
+            android:layout_width="0.5dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@color/divider"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal|center_vertical"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/fragment_productlist_card_likesPhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_like"/>
+
+            <TextView
+                android:id="@+id/fragment_productlist_card_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="@font/proximanovaregular"
+                android:textSize="14dp"
+                android:textColor="@color/cinza"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
