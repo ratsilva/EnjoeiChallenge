@@ -18,10 +18,12 @@ import br.com.enjoeichallenge.objects.Photo;
 import br.com.enjoeichallenge.objects.Product;
 import br.com.enjoeichallenge.tools.imageapi.ImageHelper;
 
-public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.ProductItemHolder> {
+public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private ArrayList<Object> productList;
     private Context ctx;
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
 
     public class ProductItemHolder extends RecyclerView.ViewHolder {
         public TextView discountPorc, title, price, size, likes;
@@ -45,74 +47,112 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         }
     }
 
+    public class HeaderItemHolder extends RecyclerView.ViewHolder{
+
+        public HeaderItemHolder(View view) {
+            super(view);
+        }
+    }
+
     public ProductListAdapter(ArrayList<Object> productList_, Context ctx_) {
         this.productList = productList_;
         this.ctx = ctx_;
     }
 
+    public void refreshList(ArrayList<Object> productList_){
+        this.productList.clear();
+        this.productList.addAll(productList_);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
-    public ProductItemHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_productlist_card, parent, false);
-        return new ProductItemHolder(itemView);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        View itemView;
+
+        if (viewType == TYPE_HEADER) {
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_productlist_header, parent, false);
+            return new HeaderItemHolder(itemView);
+        } else {
+            itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_productlist_card, parent, false);
+            return new ProductItemHolder(itemView);
+        }
+
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductItemHolder holder, int position) {
-
-        Product currentProduct = (Product) productList.get(position);
-
-        if(currentProduct.getDiscount_percentage() > 0){
-            holder.discountPorc     .setVisibility(View.VISIBLE);
-            holder.discountPorc     .setText("-" + (int) currentProduct.getDiscount_percentage() + "%");
-        }
-
-        holder.title            .setText(currentProduct.getTitle());
-
-        holder.price            .setText("R$ " + (int) currentProduct.getPrice());
-
-        if(currentProduct.getSize() != null){
-            holder.size             .setVisibility(View.VISIBLE);
-            holder.size             .setText(" - tam " + currentProduct.getSize());
-        }
-
-        holder.likes            .setText("" + currentProduct.getLikes_count());
-
-        Photo productPhoto = currentProduct.getPhotos().get(0);
-        String urlPhotoOne = holder.imgHelper.getImageURL(productPhoto.getPublic_id(), productPhoto.getCrop(), productPhoto.getGravity(), 350, 500, false);
-        holder.imgHelper.loadImage(urlPhotoOne, R.drawable.progress_image, holder.productPhoto);
-
-        Photo userPhoto = currentProduct.getUser().getAvatar();
-        String urlUserPhoto = holder.imgHelper.getImageURL(userPhoto.getPublic_id(), userPhoto.getCrop(), userPhoto.getGravity(), 90, 90, true);
-        holder.imgHelper.loadImage(urlUserPhoto, R.drawable.progress_image, holder.userPhoto);
-
-        holder.likesPhoto.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(holder.likesPhoto.isSelected()){
-                    currentProduct.setLikes_count(currentProduct.getLikes_count()-1);
-                    holder.likes.setText("" + currentProduct.getLikes_count());
-                    holder.likes.setTextColor(ctx.getResources().getColor(R.color.cinza));
-                    holder.likesPhoto.setSelected(false);
-
-                }else{
-                    currentProduct.setLikes_count(currentProduct.getLikes_count()+1);
-                    holder.likes.setText("" + currentProduct.getLikes_count());
-                    holder.likes.setTextColor(ctx.getResources().getColor(R.color.rosa));
-                    holder.likesPhoto.setSelected(true);
-                }
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
 
+
+        if(holder instanceof ProductItemHolder){
+
+            Product currentProduct = (Product) productList.get(position-1);
+
+            if(currentProduct.getDiscount_percentage() > 0){
+                ((ProductItemHolder) holder).discountPorc.setVisibility(View.VISIBLE);
+                ((ProductItemHolder) holder).discountPorc.setText("-" + (int) currentProduct.getDiscount_percentage() + "%");
             }
-        });
+
+            ((ProductItemHolder) holder).title.setText(currentProduct.getTitle());
+
+            ((ProductItemHolder) holder).price.setText("R$ " + (int) currentProduct.getPrice());
+
+            if(currentProduct.getSize() != null){
+                ((ProductItemHolder) holder).size.setVisibility(View.VISIBLE);
+                ((ProductItemHolder) holder).size.setText(" - tam " + currentProduct.getSize());
+            }
+
+            ((ProductItemHolder) holder).likes.setText("" + currentProduct.getLikes_count());
+
+            Photo productPhoto = currentProduct.getPhotos().get(0);
+            String urlPhotoOne = ((ProductItemHolder) holder).imgHelper.getImageURL(productPhoto.getPublic_id(), productPhoto.getCrop(), productPhoto.getGravity(), 350, 500, false);
+            ((ProductItemHolder) holder).imgHelper.loadImage(urlPhotoOne, R.drawable.progress_image, ((ProductItemHolder) holder).productPhoto);
+
+            Photo userPhoto = currentProduct.getUser().getAvatar();
+            String urlUserPhoto = ((ProductItemHolder) holder).imgHelper.getImageURL(userPhoto.getPublic_id(), userPhoto.getCrop(), userPhoto.getGravity(), 90, 90, true);
+            ((ProductItemHolder) holder).imgHelper.loadImage(urlUserPhoto, R.drawable.progress_image, ((ProductItemHolder) holder).userPhoto);
+
+            ((ProductItemHolder) holder).likesPhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if(((ProductItemHolder) holder).likesPhoto.isSelected()){
+                        currentProduct.setLikes_count(currentProduct.getLikes_count()-1);
+                        ((ProductItemHolder) holder).likes.setText("" + currentProduct.getLikes_count());
+                        ((ProductItemHolder) holder).likes.setTextColor(ctx.getResources().getColor(R.color.cinza));
+                        ((ProductItemHolder) holder).likesPhoto.setSelected(false);
+
+                    }else{
+                        currentProduct.setLikes_count(currentProduct.getLikes_count()+1);
+                        ((ProductItemHolder) holder).likes.setText("" + currentProduct.getLikes_count());
+                        ((ProductItemHolder) holder).likes.setTextColor(ctx.getResources().getColor(R.color.rosa));
+                        ((ProductItemHolder) holder).likesPhoto.setSelected(true);
+                    }
+
+
+                }
+            });
+
+        }
+
 
     }
 
     @Override
     public int getItemCount() {
-        return productList.size();
+        return productList.size()+1;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (isPositionHeader(position))
+            return TYPE_HEADER;
+        return TYPE_ITEM;
+    }
 
+    public boolean isPositionHeader(int position) {
+        return position == 0;
+    }
 }

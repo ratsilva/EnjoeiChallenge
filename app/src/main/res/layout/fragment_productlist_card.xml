@@ -7,14 +7,14 @@
     android:layout_marginRight="5dp"
     android:layout_marginLeft="5dp"
     android:layout_marginBottom="5dp"
-    android:layout_margin="5dp"
+    android:layout_marginTop="5dp"
     android:background="@drawable/shape_product_card">
 
     <ImageView
         android:id="@+id/fragment_productlist_card_productPhoto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY"
+        android:scaleType="centerCrop"
         android:layout_marginBottom="10dp"
         android:src="@drawable/error"/>
 

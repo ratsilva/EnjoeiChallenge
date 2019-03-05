@@ -51,6 +51,7 @@ public class ProductController extends Controller {
 
                 // Deletar infos do BD
 
+
                 // pegar a resposta
                 Product.ProductJson prodJson = response.body();
 

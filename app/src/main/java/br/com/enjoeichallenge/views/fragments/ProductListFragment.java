@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -54,8 +55,16 @@ public class ProductListFragment extends Fragment {
 
         // Configure Adapter and Recycler
         productListAdapter = new ProductListAdapter(listProdutos, getContext());
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        final GridLayoutManager manager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(productListAdapter);
+
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                return productListAdapter.isPositionHeader(position) ? manager.getSpanCount() : 1;
+            }
+        });
 
         // Define Pull to Refresh
         defineSwipeRefresh();
@@ -70,8 +79,8 @@ public class ProductListFragment extends Fragment {
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadProducts();
 
+                loadProducts();
                 swipeLayout.setRefreshing(false);
                 onLoadCompleted();
             }
@@ -104,7 +113,7 @@ public class ProductListFragment extends Fragment {
     private void onLoadCompleted(){
 
         //update adapter
-        productListAdapter.notifyDataSetChanged();
+        productListAdapter.refreshList(listProdutos);
 
     }
 
@@ -113,16 +122,16 @@ public class ProductListFragment extends Fragment {
             swipeLayout.setVisibility(View.GONE);
             fragmentError.setVisibility(View.VISIBLE);
         }else{
-            swipeLayout.setVisibility(View.VISIBLE);
             fragmentError.setVisibility(View.GONE);
+            swipeLayout.setVisibility(View.VISIBLE);
         }
     }
 
     @OnClick(R.id.fragment_error_btn)
     public void onClick(){
 
-        Log.v("onclick", "tentar de novo");
         loadProducts();
+        onLoadCompleted();
 
     }
 
