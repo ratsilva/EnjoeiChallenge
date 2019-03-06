@@ -1,7 +1,9 @@
 package br.com.enjoeichallenge.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,8 @@ import br.com.enjoeichallenge.R;
 import br.com.enjoeichallenge.objects.Photo;
 import br.com.enjoeichallenge.objects.Product;
 import br.com.enjoeichallenge.tools.imageapi.ImageHelper;
+import br.com.enjoeichallenge.views.activities.MainActivity;
+import br.com.enjoeichallenge.views.activities.ProductActivity;
 
 public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -134,6 +138,19 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
                 }
             });
+
+            ((ProductItemHolder) holder).productPhoto.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Intent i = new Intent(ctx, ProductActivity.class);
+                    i.putExtra("idproduct", currentProduct.getId());
+                    i.putExtra("iduser", currentProduct.getId_user());
+                    ctx.startActivity(i);
+
+                }
+            });
+
 
         }
 

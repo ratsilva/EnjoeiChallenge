@@ -7,7 +7,7 @@
     <string name="fragment_default_title">Oops...</string>
 
 
-    <!-- ErrorFragment -->
+    <!-- ErrorView -->
     <string name="fragment_error_title">turbulências na rede</string>
     <string name="fragment_error_msg">nosso cyber voo tá chacoalhando.\ndê uma checada na sua internet pra continuar com a gente :P</string>
     <string name="fragment_error_btn">tentar de novo</string>

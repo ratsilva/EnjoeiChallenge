@@ -1,11 +1,7 @@
 package br.com.enjoeichallenge.views.activities;
 
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.text.Layout;
 import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
 
 import com.cloudinary.android.MediaManager;
 import com.google.android.material.tabs.TabLayout;
@@ -14,20 +10,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 import br.com.enjoeichallenge.R;
 import br.com.enjoeichallenge.adapters.ViewPagerAdapter;
 import br.com.enjoeichallenge.views.fragments.CameraFragment;
-import br.com.enjoeichallenge.views.fragments.ErrorFragment;
 import br.com.enjoeichallenge.views.fragments.MailFragment;
 import br.com.enjoeichallenge.views.fragments.ProductListFragment;
 import br.com.enjoeichallenge.views.fragments.SearchFragment;
 import br.com.enjoeichallenge.views.fragments.UserFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnItemSelected;
 
 public class MainActivity extends AppCompatActivity {
 
