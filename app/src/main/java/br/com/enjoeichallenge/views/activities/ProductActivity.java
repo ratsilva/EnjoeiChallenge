@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import br.com.enjoeichallenge.views.widgets.CustomViewPager;
 import br.com.enjoeichallenge.views.widgets.ImageCircleView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class ProductActivity extends AppCompatActivity {
 
@@ -47,6 +49,9 @@ public class ProductActivity extends AppCompatActivity {
     @BindView(R.id.activity_product_txtContent) TextView txtContent;
     @BindView(R.id.activity_product_imgComment) ImageCircleView imgComment;
     @BindView(R.id.activity_product_imgLike) ImageCircleView imgLike;
+
+    @BindView(R.id.activity_product_btn_back) ImageView btnBack;
+    @BindView(R.id.activity_product_btn_share) ImageView btnShare;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +75,16 @@ public class ProductActivity extends AppCompatActivity {
         // Setup ViewPager
         setupViewPager(viewPager);
 
+    }
 
+    @OnClick(R.id.activity_product_btn_back)
+    public void backButton(){
+        finish();
+    }
 
+    @OnClick(R.id.activity_product_btn_share)
+    public void shareButton(){
+        showMessage("Clicou em Share Product");
     }
 
     private void loadCurrentProduct(){
