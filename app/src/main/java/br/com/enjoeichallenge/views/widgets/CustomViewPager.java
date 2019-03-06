@@ -1,4 +1,4 @@
-package br.com.enjoeichallenge.adapters;
+package br.com.enjoeichallenge.views.widgets;
 
 import android.content.Context;
 import android.util.AttributeSet;

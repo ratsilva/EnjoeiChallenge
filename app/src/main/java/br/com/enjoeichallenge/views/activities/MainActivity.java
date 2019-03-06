@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.addFragment(new UserFragment(), "User");
 
         viewPager.setAdapter(adapter);
+
     }
 
     private void defineTabIcons() {

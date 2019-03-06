@@ -25,6 +25,11 @@
 
     <!-- UserFragment -->
     <string name="fragment_user_msg">você selecionou a tela de meu perfil</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
+    <!-- ProductActivity Menu -->
+    <string name="product_activity_menu_item_one">Item 1</string>
+    <string name="product_activity_menu_item_two">Item 2</string>
+    <string name="product_activity_menu_item_three">Item 3</string>
 
 </resources>

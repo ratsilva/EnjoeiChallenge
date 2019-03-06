@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/view_imagecircle_img_border"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_imagecircle_image"
+        android:padding="15dp">
+
+        <ImageView
+            android:id="@+id/view_imagecircle_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_comment" />
+
+    </LinearLayout>
+
+    <br.com.enjoeichallenge.views.widgets.TextCircleView
+        android:id="@+id/view_imagecircle_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="1dp"
+        android:layout_alignTop="@+id/view_imagecircle_img_border"
+        android:layout_alignRight="@+id/view_imagecircle_img_border"
+        android:fontFamily="@font/proximanovaregular"
+        android:textSize="14dp"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>

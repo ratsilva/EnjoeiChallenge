@@ -13,18 +13,55 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/activity_product_appBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:elevation="0dp">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/activity_product_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:theme="@style/CustomToolBar">
+
+                    <ImageView
+                        android:id="@+id/activity_product_btn_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="left"
+                        android:src="@drawable/ic_back"/>
+
+                    <ImageView
+                        android:id="@+id/activity_product_btn_share"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingRight="10dp"
+                        android:layout_gravity="right"
+                        android:src="@drawable/ic_share"/>
+
+
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="20dp">
+            android:paddingBottom="50dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <br.com.enjoeichallenge.adapters.CustomViewPager
+                <br.com.enjoeichallenge.views.widgets.CustomViewPager
                     android:id="@+id/activity_product_viewpager"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -43,20 +80,18 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:id="@+id/activity_product_"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp"
-                android:paddingBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="20dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_weight="1">
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -64,10 +99,18 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/proximanovalight"
+                            android:textSize="22dp"
+                            android:textColor="@color/cinza_escuro"
+                            android:text="R$ "/>
+
+                        <TextView
                             android:id="@+id/activity_product_txtPrice"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingRight="5dp"
+                            android:paddingRight="10dp"
                             android:fontFamily="@font/proximanovabold"
                             android:textSize="22dp"
                             android:textColor="@color/cinza_escuro"/>
@@ -90,7 +133,6 @@
                         android:fontFamily="@font/proximanovalight"
                         android:textSize="16dp"
                         android:textColor="@color/cinza_escuro"
-                        android:visibility="invisible"
                         android:paddingTop="5dp"/>
 
                 </LinearLayout>
@@ -98,27 +140,23 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
+                    android:gravity="right"
+                    android:orientation="horizontal">
 
-                    <ImageView
+                    <br.com.enjoeichallenge.views.widgets.ImageCircleView
                         android:id="@+id/activity_product_imgComment"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_weight="1"
+                        android:paddingRight="10dp"
                         android:src="@drawable/ic_comment"/>
 
-                    <ImageView
+                    <br.com.enjoeichallenge.views.widgets.ImageCircleView
                         android:id="@+id/activity_product_imgLike"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_weight="1"
                         android:src="@drawable/ic_like"/>
 
                 </LinearLayout>
-
 
             </LinearLayout>
 
@@ -127,8 +165,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/proximanovalight"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:paddingBottom="10dp"
                 android:textSize="22dp"
                 android:textColor="@color/cinza_escuro"/>
@@ -138,12 +176,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/proximanovalight"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
                 android:textSize="16dp"
                 android:textColor="@color/cinza_escuro" />
 
         </LinearLayout>
 
+        </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
