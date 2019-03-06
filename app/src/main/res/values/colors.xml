@@ -10,6 +10,7 @@
     <color name="background_app_color">#FFFFFF</color>
     <color name="divider">#F4F2F0</color>
     <color name="card_border">#CAC5BF</color>
+    <color name="selected_indicator">#E85657</color>
 
     <!-- ErrorView -->
     <color name="btn_border_color">#EDEAE8</color>

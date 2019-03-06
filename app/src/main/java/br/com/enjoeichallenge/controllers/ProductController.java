@@ -85,4 +85,13 @@ public class ProductController extends Controller {
         return sqlProduct.selectAll("");
     }
 
+    public Object getProduct(long idProd, long idUser){
+
+        Product p = new Product();
+        p.setId(idProd);
+        p.setId_user(idUser);
+
+        return sqlProduct.select(p);
+    }
+
 }

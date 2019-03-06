@@ -148,7 +148,7 @@ public class SQLiteManager_Product extends SQLiteManager implements SQLiteManage
                 ProductPhoto productPhoto = (ProductPhoto) pp;
                 Photo p = new Photo();
 
-                p.setId(productPhoto.getIdproduct());
+                p.setId(productPhoto.getIdphoto());
                 p = (Photo) sqlPhoto.select(p);
                 photos.add(p);
             }

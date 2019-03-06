@@ -11,6 +11,8 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Map;
 
+import br.com.enjoeichallenge.R;
+
 public class ImageHelper {
 
     static Context ctx;
@@ -24,8 +26,9 @@ public class ImageHelper {
         Transformation tr = new Transformation();
         tr.crop(crop);
         tr.gravity(gravity);
-        tr.width(width);
-        tr.height(height);
+
+        if(width>0)tr.width(width);
+        if(height>0)tr.height(height);
 
         if(user){
             tr.radius("max");
@@ -37,10 +40,11 @@ public class ImageHelper {
 
     }
 
-    public static void loadImage(String imageUrl, int placeHolderResourceId, ImageView imageView) {
+    public static void loadImage(String imageUrl, ImageView imageView) {
         Picasso.with(ctx)
                 .load(imageUrl)
-                .placeholder(placeHolderResourceId)
+                .noFade()
+                .placeholder(R.drawable.progress_animation)
                 .into(imageView);
     }
 
