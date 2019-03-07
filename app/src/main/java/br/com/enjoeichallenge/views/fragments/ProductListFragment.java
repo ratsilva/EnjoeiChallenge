@@ -40,7 +40,7 @@ public class ProductListFragment extends Fragment {
     @BindView(R.id.fragment_error_btn) Button btnError;
     @BindView(R.id.fragment_product_error) ErrorView errorFragment;
 
-    private boolean noInternet;
+    private boolean connectInternet;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -100,7 +100,8 @@ public class ProductListFragment extends Fragment {
         // Busca produtos via API e salva no banco de dados
 
         if(!productController.testConnection()){
-            noInternet = true;
+            connectInternet = false;
+            getProductsBD();
             return;
         }
 
@@ -148,7 +149,7 @@ public class ProductListFragment extends Fragment {
 
     public void defineLayout(){
 
-        if(listProdutos.size() == 0 && !noInternet){
+        if(listProdutos.size() == 0 && !connectInternet){
             errorFragment.setVisibility(View.VISIBLE);
         }else{
             errorFragment.setVisibility(View.GONE);
