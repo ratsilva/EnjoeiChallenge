@@ -38,3 +38,5 @@ Aplicativo Android de listagem/detalhe de produtos:
 ## Desenvolvido por
 
  * Ricardo Silva - <ricardoatsilva1@gmail.com>
+
+img[alt=Screenshot] { width: 20px; }
