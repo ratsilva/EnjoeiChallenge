@@ -24,7 +24,7 @@ Aplicativo Android de listagem/detalhe de produtos:
 
 
 ### Listagem de Produtos
-<img src="screenshots/listagem1.png" width="200">  <img src="screenshots/listagem2.png" width="200">  <img src="screenshots/listagem3.png" width="200">
+<img src="screenshots/listagem1.png" width="200">  <img src="screenshots/listagem3.png" width="200">  <img src="screenshots/listagem2.png" width="200">
 
 ### Detalhe de Produto
 <img src="screenshots/detalhe_foto1.png" width="200">  <img src="screenshots/detalhe_foto2.png" width="200">  <img src="screenshots/detalhe_foto3.png" width="200">
