@@ -32,6 +32,24 @@ Aplicativo Android de listagem/detalhe de produtos:
 ### Erro de Conexão
 <img src="screenshots/erro_conexao.png" width="200">
 
+## Building
+
+### Android Studio
+
+1. Selecionar a opção: VCS > Checkout from version control > Git
+
+<img src="screenshots/android_git_1.png">
+
+2. Inserir a URL: <https://github.com/ratsilva/EnjoeiChallenge.git>
+
+<img src="screenshots/android_git_2.png">
+
+3. Instalar plugins, se necessário
+
+<img src="screenshots/android_git_3.png">
+
+4. Clicar em Run
+
 ## Desenvolvido por
 
  * Ricardo Silva - <ricardoatsilva1@gmail.com>
