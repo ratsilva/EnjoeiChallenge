@@ -1,17 +1,11 @@
 package br.com.enjoeichallenge.tools.imageapi;
 
 import android.content.Context;
-import android.provider.MediaStore;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.cloudinary.Transformation;
 import com.cloudinary.android.MediaManager;
-import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import br.com.enjoeichallenge.R;
 

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "br.com.enjoeichallenge"
-        minSdkVersion 21
+        minSdkVersion 18
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -54,20 +54,8 @@ dependencies {
     // ViewPagerIndicator
     implementation 'com.romandanylyk:pageindicatorview:1.0.3'
 
+    // Testes
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.robolectric:robolectric:3.0'
-
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
-
-    //androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
-    //androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-    //androidTestImplementation 'androidx.test:rules:1.1.0'
-
-    androidTestImplementation 'androidx.test:core:+'
-    androidTestImplementation 'androidx.test.ext:junit:+'
-    androidTestImplementation 'androidx.test:runner:+'
     androidTestImplementation 'androidx.test.espresso:espresso-core:+'
-
 
 }
