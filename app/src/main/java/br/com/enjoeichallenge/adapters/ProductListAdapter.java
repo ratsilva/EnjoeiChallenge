@@ -118,6 +118,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             String urlUserPhoto = ((ProductItemHolder) holder).imgHelper.getImageURL(userPhoto.getPublic_id(), userPhoto.getCrop(), userPhoto.getGravity(), 90, 90, true);
             ((ProductItemHolder) holder).imgHelper.loadImage(urlUserPhoto, ((ProductItemHolder) holder).userPhoto);
 
+            ((ProductItemHolder) holder).likesPhoto.setSelected(false);
+            ((ProductItemHolder) holder).likes.setTextColor(ctx.getResources().getColor(R.color.cinza));
+
             ((ProductItemHolder) holder).likesPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

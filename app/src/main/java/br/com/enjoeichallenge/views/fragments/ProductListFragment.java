@@ -65,6 +65,7 @@ public class ProductListFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setAdapter(productListAdapter);
 
+        // Colocando o header para ocupar 2 posições horizontais no grid
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
@@ -73,7 +74,7 @@ public class ProductListFragment extends Fragment {
         });
 
         // Define Pull to Refresh
-        defineSwipeRefresh();
+        defineSwipe();
 
         // Busca produtos na API REST
         getProductsAPI();
@@ -81,15 +82,16 @@ public class ProductListFragment extends Fragment {
         return view;
     }
 
-    private void defineSwipeRefresh(){
+    private void defineSwipe(){
 
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 getProductsAPI();
-                swipeLayout.setRefreshing(false);
             }
         });
+
+        swipeLayout.setColorSchemeResources(R.color.rosa);
 
     }
 
@@ -101,6 +103,8 @@ public class ProductListFragment extends Fragment {
             noInternet = true;
             return;
         }
+
+        swipeLayout.setRefreshing(true);
 
         Call<Product.ProductJson> listProducts = productController.httpProduct.getProducts();
 
@@ -171,6 +175,7 @@ public class ProductListFragment extends Fragment {
     public void onLoadCompleted(){
         //update adapter
         productListAdapter.refreshList(listProdutos);
+        swipeLayout.setRefreshing(false);
     }
 
     @OnClick(R.id.fragment_error_btn)
