@@ -19,8 +19,21 @@ Aplicativo Android de listagem/detalhe de produtos:
 
 ## Screenshots
 
-# SplashScreen
-![Logo](screenshots/splash.png)
+### SplashScreen
+![Screenshot](screenshots/splash.png)
+
+### Listagem de Produtos
+![Screenshot](screenshots/listagem1.png)
+![Screenshot](screenshots/listagem2.png)
+![Screenshot](screenshots/listagem3.png)
+
+### Detalhe de Produto
+![Screenshot](screenshots/detalhe_foto1.png)
+![Screenshot](screenshots/detalhe_foto2.png)
+![Screenshot](screenshots/detalhe_foto3.png)
+
+### Erro de Conexão
+![Screenshot](screenshots/erro_conexao.png)
 
 ## Desenvolvido por
 
