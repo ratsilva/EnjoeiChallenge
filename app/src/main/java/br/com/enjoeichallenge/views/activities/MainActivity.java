@@ -23,6 +23,7 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Icones utilizados na TabLayout
     private int[] tabIcons = {
             R.drawable.ic_home,
             R.drawable.ic_search,
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.ic_user
     };
 
+    // Referenciando variáveis com o layout através da biblioteca ButterKnife
     @BindView(R.id.activity_main_tabs) TabLayout tabLayout;
     @BindView(R.id.activity_main_viewpager) ViewPager viewPager;
 
@@ -39,15 +41,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Bind activity com ButterKnife
         ButterKnife.bind(this);
 
+        // Adicionando fragments ao viewPager
         setupViewPager(viewPager);
+
+        // Adiciona viewPager no TabLayout
         tabLayout.setupWithViewPager(viewPager);
+
+        // Configurando ícones da TabLayout
         defineTabIcons();
 
+        // Configurações para utilização do Cloudinary
         Map config = new HashMap();
         config.put("cloud_name", "demo");
 
+        // Inicialização do Cloudinary
         try {
             MediaManager.init(this, config);
         }catch (RuntimeException e){
@@ -58,6 +68,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Recebe o viewPager
+     * Cria um adapter
+     * Adiciona os fragments no adapter
+     * Adiciona o adapter no viewPager
+     * @param viewPager
+     */
     private void setupViewPager(ViewPager viewPager) {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
@@ -71,6 +88,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Adiciona ícones na tabbar nas posições corretas
+     */
     private void defineTabIcons() {
 
         tabLayout.getTabAt(0).setIcon(tabIcons[0]);

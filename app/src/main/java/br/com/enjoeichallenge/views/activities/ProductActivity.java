@@ -3,7 +3,6 @@ package br.com.enjoeichallenge.views.activities;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,16 +31,16 @@ import butterknife.OnClick;
 
 public class ProductActivity extends AppCompatActivity {
 
+    // Variáveis auxiliares de funcionamento
     ProductController productController;
     Product currentProduct;
     ImageHelper imgHelper;
 
+    // Referenciando variáveis com o layout através da biblioteca ButterKnife
     @BindView(R.id.activity_product_viewpager) CustomViewPager viewPager;
     @BindView(R.id.activity_product_viewpager_indicator) PageIndicatorView pageIndicatorView;
-
     @BindView(R.id.activity_product_toolbar) Toolbar toolBar;
     @BindView(R.id.activity_product_appBar) AppBarLayout appBar;
-
     @BindView(R.id.activity_product_txtPrice) TextView txtPrice;
     @BindView(R.id.activity_product_txtOriginalPrice) TextView txtOriginalPrice;
     @BindView(R.id.activity_product_txtMaxInstall) TextView txtMaxInstall;
@@ -49,7 +48,6 @@ public class ProductActivity extends AppCompatActivity {
     @BindView(R.id.activity_product_txtContent) TextView txtContent;
     @BindView(R.id.activity_product_imgComment) ImageCircleView imgComment;
     @BindView(R.id.activity_product_imgLike) ImageCircleView imgLike;
-
     @BindView(R.id.activity_product_btn_back) ImageView btnBack;
     @BindView(R.id.activity_product_btn_share) ImageView btnShare;
 
@@ -58,47 +56,58 @@ public class ProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);
 
+        // Bind activity com ButterKnife
         ButterKnife.bind(this);
 
-        // Setup AppBar and ToolBar
+        // Adicionando toolBar
         setSupportActionBar(toolBar);
+
+        // Removendo titulo da appBar
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        // Trazendo a appBar para primeiro plano
         appBar.bringToFront();
 
-        // Initialize variables
+        // Inicializando auxiliares de funcionamento
         imgHelper = new ImageHelper(this);
         productController = new ProductController(this);
 
-        // Load current Product Detail
+        // Carrega produto atual passado por parâmetro
         loadCurrentProduct();
 
-        // Setup ViewPager
+        // Configurando viewPager
         setupViewPager(viewPager);
+
+        // Configurando viewPagerIndicator
+        setupViewPagerIndicator(viewPager);
 
     }
 
+    /**
+     *  Evento do botão voltar
+     *  Fecha a activity atual
+     */
     @OnClick(R.id.activity_product_btn_back)
     public void backButton(){
         finish();
     }
 
+    /**
+     *  Evento do botão compartilhar
+     *  Exibe uma mensagem com Toast
+     */
     @OnClick(R.id.activity_product_btn_share)
     public void shareButton(){
-        showMessage("Clicou em Share Product");
+        showMessage("Clicou em Compartilhar Produto");
     }
 
-    private void loadCurrentProduct(){
-
-        Intent intent = getIntent();
-        long idProd = intent.getLongExtra("idproduct", 0);
-        long idUser = intent.getLongExtra("iduser", 0);
-
-        currentProduct = (Product) productController.getProduct(idProd, idUser);
-
-        setupFields();
-
-    }
-
+    /**
+     *  Recebe o viewPager como parametro
+     *  Cria um adapter
+     *  Adiciona a URL das imagens no adapter
+     *  Adiciona adapter no viewPager
+     * @param viewPager
+     */
     private void setupViewPager(ViewPager viewPager) {
 
         ImageAdapter adapter = new ImageAdapter(this);
@@ -112,6 +121,16 @@ public class ProductActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
 
+    }
+
+    /**
+     *  Recebe o viewPager como parametro
+     *  Define a quantidade de fotos para o viewPagerIndicator
+     *  Implementa o método onPageSelected para indicar a foto atual
+     * @param viewPager
+     */
+    private void setupViewPagerIndicator(ViewPager viewPager){
+
         pageIndicatorView.setCount(currentProduct.getPhotos().size());
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -124,12 +143,37 @@ public class ProductActivity extends AppCompatActivity {
             @Override
             public void onPageScrollStateChanged(int state) {}
         });
+
     }
 
+    /**
+     *  Carrega o produto atual (selecionado na tela de listagem)
+     *  Carrega as informações do produto na tela com o método setupFields()
+     */
+    private void loadCurrentProduct(){
+
+        // Pega os parâmetros da activity (idproduct e iduser)
+        Intent intent = getIntent();
+        long idProd = intent.getLongExtra("idproduct", 0);
+        long idUser = intent.getLongExtra("iduser", 0);
+
+        // Busca o produto no banco de dados e define no currentProduct
+        currentProduct = (Product) productController.getProduct(idProd, idUser);
+
+        // Carrega informações do produto na tela
+        setupFields();
+
+    }
+
+    /**
+     *  Carrega as informações do produto atual na tela
+     */
     private void setupFields(){
 
+        // Define preço
         txtPrice            .setText("" + (int) currentProduct.getPrice());
 
+        // Define preço original
         String discount = "";
         if(currentProduct.getDiscount_percentage() > 0){
             discount = (int) currentProduct.getDiscount_percentage() + "% off ";
@@ -140,13 +184,17 @@ public class ProductActivity extends AppCompatActivity {
 
         }
 
+        // Define condições de pagamento
         if(currentProduct.getMaximum_installment() > 0){
             txtMaxInstall       .setText(discount + "em até " + currentProduct.getMaximum_installment() + "x");
         }else{
             txtMaxInstall       .setText("à vista");
         }
 
+        // Define título
         txtTitle            .setText(currentProduct.getTitle());
+
+        // Define descrição
         txtContent          .setText(currentProduct.getContent());
 
         String strLikes = null;
@@ -154,14 +202,21 @@ public class ProductActivity extends AppCompatActivity {
             strLikes = "" + currentProduct.getLikes_count();
         }
 
+        // Define qtd de likes
         imgLike.setText(strLikes);
+
+        // Define ícone de likes
         imgLike.setImage(R.drawable.ic_like);
 
         String strComments = null;
         if(currentProduct.getPublished_comments_count() > 0){
             strComments = "" + currentProduct.getPublished_comments_count();
         }
+
+        // Define qtd de comentários
         imgComment.setText(strComments);
+
+        // Define ícone de comentários
         imgComment.setImage(R.drawable.ic_comment);
 
     }
@@ -191,6 +246,10 @@ public class ProductActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Recebe uma string como parâmetro e exibe um Toast com ela
+     * @param message
+     */
     private void showMessage(String message){
 
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();

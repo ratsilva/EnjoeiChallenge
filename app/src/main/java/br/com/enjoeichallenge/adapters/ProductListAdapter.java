@@ -2,8 +2,6 @@ package br.com.enjoeichallenge.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,7 +16,6 @@ import br.com.enjoeichallenge.R;
 import br.com.enjoeichallenge.objects.Photo;
 import br.com.enjoeichallenge.objects.Product;
 import br.com.enjoeichallenge.tools.imageapi.ImageHelper;
-import br.com.enjoeichallenge.views.activities.MainActivity;
 import br.com.enjoeichallenge.views.activities.ProductActivity;
 
 public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -29,12 +25,12 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private static final int TYPE_HEADER = 0;
     private static final int TYPE_ITEM = 1;
 
-    public class ProductItemHolder extends RecyclerView.ViewHolder {
-        public TextView discountPorc, title, price, size, likes;
-        public ImageView productPhoto, userPhoto, likesPhoto;
-        public ImageHelper imgHelper;
+    private class ProductItemHolder extends RecyclerView.ViewHolder {
+        private TextView discountPorc, title, price, size, likes;
+        private ImageView productPhoto, userPhoto, likesPhoto;
+        private ImageHelper imgHelper;
 
-        public ProductItemHolder(View view) {
+        private ProductItemHolder(View view) {
             super(view);
 
             imgHelper = new ImageHelper(ctx);
@@ -51,9 +47,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    public class HeaderItemHolder extends RecyclerView.ViewHolder{
+    private class HeaderItemHolder extends RecyclerView.ViewHolder{
 
-        public HeaderItemHolder(View view) {
+        private HeaderItemHolder(View view) {
             super(view);
         }
     }

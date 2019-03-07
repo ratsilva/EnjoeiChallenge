@@ -10,6 +10,7 @@ import br.com.enjoeichallenge.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
+    // Tempo de espera até abrir a próxima actiivty
     private static int SPLASH_TIME_OUT = 1000;
 
     @Override
@@ -19,11 +20,13 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         Context ctx = this;
 
+        // Inicia o handler com o tempo definido para trocar de acitivity
         new Handler().postDelayed(new Runnable() {
 
             @Override
             public void run() {
 
+                // Finaliza activity atual e abre a MainActivity
                 Intent i = new Intent(ctx, MainActivity.class);
                 startActivity(i);
                 finish();
