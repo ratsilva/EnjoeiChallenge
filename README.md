@@ -20,7 +20,7 @@ Aplicativo Android de listagem/detalhe de produtos:
 ## Screenshots
 
 ### SplashScreen
-![Screenshot](screenshots/splash.png)
+![Screenshot](screenshots/splash.png =250x250)
 
 ### Listagem de Produtos
 ![Screenshot](screenshots/listagem1.png)
@@ -38,5 +38,3 @@ Aplicativo Android de listagem/detalhe de produtos:
 ## Desenvolvido por
 
  * Ricardo Silva - <ricardoatsilva1@gmail.com>
-
-img[alt=Screenshot] { width: 20px; }
