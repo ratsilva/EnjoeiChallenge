@@ -15,7 +15,6 @@ Aplicativo Android de listagem/detalhe de produtos:
  * pull to refresh para atualizar os dados da lista
  * produtos salvos em um banco de dados
  * utilização das informações do banco de dados em caso de falha de conexão
- * testes unitários e de interface
 
 ## Screenshots
 
