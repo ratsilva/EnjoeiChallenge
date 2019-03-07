@@ -7,12 +7,12 @@ import android.database.Cursor;
 import java.util.ArrayList;
 
 import br.com.enjoeichallenge.objects.ProductPhoto;
+import br.com.enjoeichallenge.objects.contracts.PhotoContract;
 import br.com.enjoeichallenge.objects.contracts.ProductPhotoContract;
-
 
 public class SQLiteManager_ProductPhoto extends SQLiteManager implements SQLiteManager_CRUD {
 
-    SQLiteManager_ProductPhoto(Context ctx_) {
+    public SQLiteManager_ProductPhoto(Context ctx_) {
         super(ctx_);
     }
 
@@ -40,6 +40,18 @@ public class SQLiteManager_ProductPhoto extends SQLiteManager implements SQLiteM
     @Override
     public boolean delete(Object obj) {
         return false;
+    }
+
+    @Override
+    public void deleteAll() {
+
+        accessDB(OPEN_MODE);
+
+        sqlite.delete(ProductPhotoContract.TABLE_NAME, null, null);
+        sqlite.delete("SQLITE_SEQUENCE", "name = '" + ProductPhotoContract.TABLE_NAME + "'", null);
+
+        accessDB(CLOSE_MODE);
+
     }
 
     @Override

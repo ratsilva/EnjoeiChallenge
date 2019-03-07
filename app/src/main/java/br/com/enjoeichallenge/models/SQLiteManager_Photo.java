@@ -41,6 +41,18 @@ public class SQLiteManager_Photo extends SQLiteManager implements SQLiteManager_
     }
 
     @Override
+    public void deleteAll() {
+
+        accessDB(OPEN_MODE);
+
+        sqlite.delete(PhotoContract.TABLE_NAME, null, null);
+        sqlite.delete("SQLITE_SEQUENCE", "name = '" + PhotoContract.TABLE_NAME + "'", null);
+
+        accessDB(CLOSE_MODE);
+
+    }
+
+    @Override
     public long update(Object obj) {
 
 

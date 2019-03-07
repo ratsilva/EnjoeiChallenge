@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -18,22 +16,31 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import br.com.enjoeichallenge.R;
 import br.com.enjoeichallenge.adapters.ProductListAdapter;
 import br.com.enjoeichallenge.controllers.ProductController;
+import br.com.enjoeichallenge.objects.Product;
+import br.com.enjoeichallenge.objects.User;
+import br.com.enjoeichallenge.views.widgets.ErrorView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductListFragment extends Fragment {
 
     private Unbinder unbinder;
-    private ProductController productController;
-    private ArrayList<Object> listProdutos;
     private ProductListAdapter productListAdapter;
+
+    public ProductController productController;
+    public ArrayList<Object> listProdutos;
 
     @BindView(R.id.fragment_productlist_swipelayout) SwipeRefreshLayout swipeLayout;
     @BindView(R.id.fragment_productlist_recyclerview) RecyclerView recyclerView;
-    @BindView(R.id.fragment_productlist_errorview) LinearLayout fragmentError;
     @BindView(R.id.fragment_error_btn) Button btnError;
+    @BindView(R.id.fragment_product_error) ErrorView errorFragment;
+
+    private boolean noInternet;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,16 +49,15 @@ public class ProductListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_productlist, container, false);
 
         // Bind fragment with ButterKnife
         unbinder = ButterKnife.bind(this, view);
 
-        // Define Product Controller
+        // Initializing
+        listProdutos = new ArrayList<>();
         productController = new ProductController(getContext());
-
-        // Load Products
-        loadProducts();
 
         // Configure Adapter and Recycler
         productListAdapter = new ProductListAdapter(listProdutos, getContext());
@@ -62,77 +68,114 @@ public class ProductListFragment extends Fragment {
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                return productListAdapter.isPositionHeader(position) ? manager.getSpanCount() : 1;
+            return productListAdapter.isPositionHeader(position) ? manager.getSpanCount() : 1;
             }
         });
 
         // Define Pull to Refresh
         defineSwipeRefresh();
 
+        // Busca produtos na API REST
+        getProductsAPI();
+
         return view;
     }
-
-
 
     private void defineSwipeRefresh(){
 
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
-                loadProducts();
+                getProductsAPI();
                 swipeLayout.setRefreshing(false);
-                onLoadCompleted();
             }
         });
 
+    }
+
+    public void getProductsAPI(){
+
+        // Busca produtos via API e salva no banco de dados
+
+        if(!productController.testConnection()){
+            noInternet = true;
+            return;
+        }
+
+        Call<Product.ProductJson> listProducts = productController.httpProduct.getProducts();
+
+        listProducts.enqueue(new Callback<Product.ProductJson>() {
+
+            @Override
+            public void onResponse(Call<Product.ProductJson> call, Response<Product.ProductJson> response) {
+
+                Log.v("onResponse", response.body().toString());
+
+                // Deletar infos do BD
+                productController.deleteAllBD();
+
+                // pegar a resposta
+                Product.ProductJson prodJson = response.body();
+
+                for(Product p : prodJson.getProduts()){
+
+                    // Usuário
+                    User user = p.getUser();
+                    long id_user = productController.sqlUser.save(user);
+
+                    // Inserir produto
+                    p.setId_user(id_user);
+                    productController.sqlProduct.save(p);
+
+                }
+
+                getProductsBD();
+
+            }
+
+            @Override
+            public void onFailure(Call<Product.ProductJson> call, Throwable t) {
+                // tratar algum erro
+                Log.v("failure", ""+t.getMessage());
+            }
+        });
 
     }
 
-    private void loadProducts(){
+    public void defineLayout(){
 
-        boolean error = false;
+        if(listProdutos.size() == 0 && !noInternet){
+            errorFragment.setVisibility(View.VISIBLE);
+        }else{
+            errorFragment.setVisibility(View.GONE);
+        }
 
-        // Busca produtos via API e salva no banco de dados
-        boolean okAPI = productController.requestProductsAPI();
+    }
+
+    public void getProductsBD(){
 
         // Busca produtos no BD
         listProdutos = productController.getListProducts();
 
-        // Se não existem produtos no BD por falta de conexão
-        if(listProdutos == null){
-            // Error view
-            error = true;
-            listProdutos = new ArrayList<>();
-        }
+        // Se não existem produtos no BD
+        if(listProdutos == null)listProdutos = new ArrayList<>();
 
-        defineErrorView(error);
+        // Update list do adapter
+        onLoadCompleted();
+
+        // Update layout usuário
+        defineLayout();
 
     }
 
-    private void onLoadCompleted(){
-
+    public void onLoadCompleted(){
         //update adapter
         productListAdapter.refreshList(listProdutos);
-
-    }
-
-    private void defineErrorView(boolean error){
-        if(error) {
-            swipeLayout.setVisibility(View.GONE);
-            fragmentError.setVisibility(View.VISIBLE);
-        }else{
-            fragmentError.setVisibility(View.GONE);
-            swipeLayout.setVisibility(View.VISIBLE);
-        }
     }
 
     @OnClick(R.id.fragment_error_btn)
     public void onClick(){
-
-        loadProducts();
-        onLoadCompleted();
-
+        getProductsAPI();
     }
 
     @Override

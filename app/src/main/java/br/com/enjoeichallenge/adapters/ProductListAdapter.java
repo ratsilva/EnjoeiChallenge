@@ -88,8 +88,6 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-
-
         if(holder instanceof ProductItemHolder){
 
             Product currentProduct = (Product) productList.get(position-1);
@@ -110,9 +108,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
             ((ProductItemHolder) holder).likes.setText("" + currentProduct.getLikes_count());
 
-            Photo productPhoto = currentProduct.getPhotos().get(0);
-            String urlPhotoOne = ((ProductItemHolder) holder).imgHelper.getImageURL(productPhoto.getPublic_id(), productPhoto.getCrop(), productPhoto.getGravity(), 350, 500, false);
-            ((ProductItemHolder) holder).imgHelper.loadImage(urlPhotoOne, ((ProductItemHolder) holder).productPhoto);
+            if(currentProduct.getPhotos().size() > 0){
+                Photo productPhoto = currentProduct.getPhotos().get(0);
+                String urlPhotoOne = ((ProductItemHolder) holder).imgHelper.getImageURL(productPhoto.getPublic_id(), productPhoto.getCrop(), productPhoto.getGravity(), 350, 500, false);
+                ((ProductItemHolder) holder).imgHelper.loadImage(urlPhotoOne, ((ProductItemHolder) holder).productPhoto);
+            }
 
             Photo userPhoto = currentProduct.getUser().getAvatar();
             String urlUserPhoto = ((ProductItemHolder) holder).imgHelper.getImageURL(userPhoto.getPublic_id(), userPhoto.getCrop(), userPhoto.getGravity(), 90, 90, true);

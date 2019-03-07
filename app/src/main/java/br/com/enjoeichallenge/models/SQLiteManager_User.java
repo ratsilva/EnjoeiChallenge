@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import br.com.enjoeichallenge.objects.Photo;
 import br.com.enjoeichallenge.objects.User;
+import br.com.enjoeichallenge.objects.contracts.PhotoContract;
 import br.com.enjoeichallenge.objects.contracts.UserContract;
 
 public class SQLiteManager_User extends SQLiteManager implements SQLiteManager_CRUD {
@@ -45,6 +46,18 @@ public class SQLiteManager_User extends SQLiteManager implements SQLiteManager_C
     @Override
     public boolean delete(Object obj) {
         return false;
+    }
+
+    @Override
+    public void deleteAll() {
+
+        accessDB(OPEN_MODE);
+
+        sqlite.delete(UserContract.TABLE_NAME, null, null);
+        sqlite.delete("SQLITE_SEQUENCE", "name = '" + UserContract.TABLE_NAME + "'", null);
+
+        accessDB(CLOSE_MODE);
+
     }
 
     @Override

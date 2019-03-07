@@ -8,6 +8,12 @@
     android:orientation="vertical"
     android:gravity="center">
 
+    <br.com.enjoeichallenge.views.widgets.ErrorView
+        android:id="@+id/fragment_product_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/fragment_productlist_swipelayout"
         android:layout_width="match_parent"
@@ -20,6 +26,7 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <!--
     <LinearLayout
         android:id="@+id/fragment_productlist_errorview"
         android:layout_width="wrap_content"
@@ -34,5 +41,6 @@
             layout="@layout/fragment_error"/>
 
     </LinearLayout>
+    -->
 
 </LinearLayout>

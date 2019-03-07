@@ -9,6 +9,7 @@ public interface SQLiteManager_CRUD {
 
     // Delete
     boolean delete(Object obj);
+    void deleteAll();
 
     // Update
     long update(Object obj);

@@ -10,20 +10,21 @@ import br.com.enjoeichallenge.objects.Photo;
 import br.com.enjoeichallenge.objects.Product;
 import br.com.enjoeichallenge.objects.ProductPhoto;
 import br.com.enjoeichallenge.objects.User;
+import br.com.enjoeichallenge.objects.contracts.PhotoContract;
 import br.com.enjoeichallenge.objects.contracts.ProductContract;
 import br.com.enjoeichallenge.objects.contracts.ProductPhotoContract;
 
 public class SQLiteManager_Product extends SQLiteManager implements SQLiteManager_CRUD {
 
     private SQLiteManager_Photo sqlPhoto;
-    private SQLiteManager_ProductPhoto sqlProdPhoto;
     private SQLiteManager_User sqlUser;
+    private SQLiteManager_ProductPhoto sqlProductPhoto;
 
     public SQLiteManager_Product(Context ctx_) {
         super(ctx_);
         sqlPhoto = new SQLiteManager_Photo(ctx_);
-        sqlProdPhoto = new SQLiteManager_ProductPhoto(ctx_);
         sqlUser = new SQLiteManager_User(ctx_);
+        sqlProductPhoto = new SQLiteManager_ProductPhoto(ctx_);
     }
 
 
@@ -39,7 +40,7 @@ public class SQLiteManager_Product extends SQLiteManager implements SQLiteManage
             pp.setIdphoto(id_photo);
             pp.setIdproduct(product.getId());
             pp.setIduser(product.getId_user());
-            sqlProdPhoto.save(pp);
+            sqlProductPhoto.save(pp);
 
         }
 
@@ -70,6 +71,18 @@ public class SQLiteManager_Product extends SQLiteManager implements SQLiteManage
     @Override
     public boolean delete(Object obj) {
         return false;
+    }
+
+    @Override
+    public void deleteAll() {
+
+        accessDB(OPEN_MODE);
+
+        sqlite.delete(ProductContract.TABLE_NAME, null, null);
+        sqlite.delete("SQLITE_SEQUENCE", "name = '" + ProductContract.TABLE_NAME + "'", null);
+
+        accessDB(CLOSE_MODE);
+
     }
 
     @Override
@@ -141,16 +154,20 @@ public class SQLiteManager_Product extends SQLiteManager implements SQLiteManage
 
             String where =  "WHERE " + ProductPhotoContract.IDPRODUCT + " = " + product.getId() +
                             " AND " + ProductPhotoContract.IDUSER + " = " + product.getId_user();
-            ArrayList<Object> ppList = sqlProdPhoto.selectAll(where);
+            ArrayList<Object> ppList = sqlProductPhoto.selectAll(where);
 
-            for(Object pp : ppList){
+            if(ppList != null){
 
-                ProductPhoto productPhoto = (ProductPhoto) pp;
-                Photo p = new Photo();
+                for(Object pp : ppList){
 
-                p.setId(productPhoto.getIdphoto());
-                p = (Photo) sqlPhoto.select(p);
-                photos.add(p);
+                    ProductPhoto productPhoto = (ProductPhoto) pp;
+                    Photo p = new Photo();
+
+                    p.setId(productPhoto.getIdphoto());
+                    p = (Photo) sqlPhoto.select(p);
+                    photos.add(p);
+                }
+
             }
 
             product.setPhotos(photos);
@@ -226,16 +243,20 @@ public class SQLiteManager_Product extends SQLiteManager implements SQLiteManage
 
                 String where2 =  "WHERE " + ProductPhotoContract.IDPRODUCT + " = " + p.getId() +
                         " AND " + ProductPhotoContract.IDUSER + " = " + p.getId_user();
-                ArrayList<Object> ppList = sqlProdPhoto.selectAll(where2);
+                ArrayList<Object> ppList = sqlProductPhoto.selectAll(where2);
 
-                for(Object pp : ppList){
+                if(ppList != null){
 
-                    ProductPhoto productPhoto = (ProductPhoto) pp;
-                    Photo p2 = new Photo();
+                    for(Object pp : ppList){
 
-                    p2.setId(productPhoto.getIdphoto());
-                    p2 = (Photo) sqlPhoto.select(p2);
-                    photos.add(p2);
+                        ProductPhoto productPhoto = (ProductPhoto) pp;
+                        Photo p2 = new Photo();
+
+                        p2.setId(productPhoto.getIdphoto());
+                        p2 = (Photo) sqlPhoto.select(p2);
+                        photos.add(p2);
+                    }
+
                 }
 
                 p.setPhotos(photos);
