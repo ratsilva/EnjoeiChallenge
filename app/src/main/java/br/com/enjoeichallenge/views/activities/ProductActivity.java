@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 import br.com.enjoeichallenge.R;
 import br.com.enjoeichallenge.adapters.ImageAdapter;
+import br.com.enjoeichallenge.adapters.ProductListAdapter;
 import br.com.enjoeichallenge.controllers.ProductController;
 import br.com.enjoeichallenge.objects.Photo;
 import br.com.enjoeichallenge.objects.Product;
@@ -99,6 +100,50 @@ public class ProductActivity extends AppCompatActivity {
     @OnClick(R.id.activity_product_btn_share)
     public void shareButton(){
         showMessage("Clicou em Compartilhar Produto");
+    }
+
+    /**
+     *  Evento do botão like
+     *  Aumenta ou Diminui o contador de like
+     *  Seleciona ou Deseleciona o ícone
+     */
+    @OnClick(R.id.activity_product_imgLike)
+    public void likeButton(){
+
+        if(imgLike.isImagePressed()){
+            currentProduct.setLikes_count(currentProduct.getLikes_count()-1);
+            imgLike.setText("" + currentProduct.getLikes_count());
+            imgLike.setImagePressed(false);
+            imgLike.invalidate();
+        }else{
+            currentProduct.setLikes_count(currentProduct.getLikes_count()+1);
+            imgLike.setText("" + currentProduct.getLikes_count());
+            imgLike.setImagePressed(true);
+            imgLike.invalidate();
+        }
+
+    }
+
+    /**
+     *  Evento do botão comment
+     *  Aumenta ou Diminui o contador de comentários
+     *  Seleciona ou Deseleciona o ícone
+     */
+    @OnClick(R.id.activity_product_imgComment)
+    public void commentButton(){
+
+        if(imgComment.isImagePressed()){
+            currentProduct.setPublished_comments_count(currentProduct.getPublished_comments_count()-1);
+            imgComment.setText("" + currentProduct.getPublished_comments_count());
+            imgComment.setImagePressed(false);
+            imgComment.invalidate();
+        }else{
+            currentProduct.setPublished_comments_count(currentProduct.getPublished_comments_count()+1);
+            imgComment.setText("" + currentProduct.getPublished_comments_count());
+            imgComment.setImagePressed(true);
+            imgComment.invalidate();
+        }
+
     }
 
     /**
@@ -197,27 +242,21 @@ public class ProductActivity extends AppCompatActivity {
         // Define descrição
         txtContent          .setText(currentProduct.getContent());
 
-        String strLikes = null;
-        if(currentProduct.getLikes_count() > 0){
-            strLikes = "" + currentProduct.getLikes_count();
-        }
 
         // Define qtd de likes
-        imgLike.setText(strLikes);
+        imgLike.setText("" + currentProduct.getLikes_count());
 
         // Define ícone de likes
         imgLike.setImage(R.drawable.ic_like);
+        imgLike.setImagePressed(false);
 
-        String strComments = null;
-        if(currentProduct.getPublished_comments_count() > 0){
-            strComments = "" + currentProduct.getPublished_comments_count();
-        }
 
         // Define qtd de comentários
-        imgComment.setText(strComments);
+        imgComment.setText("" + currentProduct.getPublished_comments_count());
 
         // Define ícone de comentários
         imgComment.setImage(R.drawable.ic_comment);
+        imgComment.setImagePressed(false);
 
     }
 
