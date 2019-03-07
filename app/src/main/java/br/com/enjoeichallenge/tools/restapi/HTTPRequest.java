@@ -15,8 +15,8 @@ public class HTTPRequest {
     public HTTPRequest(){
 
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .readTimeout(60, TimeUnit.SECONDS)
-                .connectTimeout(60, TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
                 .build();
 
         this.retrofit = new Retrofit.Builder()

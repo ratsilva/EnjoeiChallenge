@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         // Configurações para utilização do Cloudinary
         Map config = new HashMap();
         config.put("cloud_name", "demo");
+        config.put("secure", true);
 
         // Inicialização do Cloudinary
         try {

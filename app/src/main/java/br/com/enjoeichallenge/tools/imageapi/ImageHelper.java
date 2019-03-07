@@ -4,8 +4,10 @@ import android.content.Context;
 import android.provider.MediaStore;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.cloudinary.Transformation;
 import com.cloudinary.android.MediaManager;
+import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
@@ -41,11 +43,13 @@ public class ImageHelper {
     }
 
     public static void loadImage(String imageUrl, ImageView imageView) {
+
         Picasso.with(ctx)
                 .load(imageUrl)
                 .noFade()
                 .placeholder(R.drawable.progress_animation)
                 .into(imageView);
+
     }
 
 }
