@@ -36,11 +36,11 @@ Aplicativo Android de listagem/detalhe de produtos:
 
 ### Android Studio
 
-1. Selecionar a opção: VCS > Checkout from version control > Git
+1. Selecionar a opção: `VCS > Checkout from version control > Git`
 
 <img src="screenshots/android_git_1.png">
 
-2. Inserir a URL: <https://github.com/ratsilva/EnjoeiChallenge.git>
+2. Inserir a URL: `<https://github.com/ratsilva/EnjoeiChallenge.git>`
 
 <img src="screenshots/android_git_2.png">
 
