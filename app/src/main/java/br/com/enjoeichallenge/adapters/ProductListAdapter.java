@@ -109,11 +109,13 @@ public class ProductListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 Photo productPhoto = currentProduct.getPhotos().get(0);
                 String urlPhotoOne = ((ProductItemHolder) holder).imgHelper.getImageURL(productPhoto.getPublic_id(), productPhoto.getCrop(), productPhoto.getGravity(), 350, 500, false);
                 ((ProductItemHolder) holder).imgHelper.loadImage(urlPhotoOne, ((ProductItemHolder) holder).productPhoto);
+                ((ProductItemHolder) holder).productPhoto.invalidate();
             }
 
             Photo userPhoto = currentProduct.getUser().getAvatar();
             String urlUserPhoto = ((ProductItemHolder) holder).imgHelper.getImageURL(userPhoto.getPublic_id(), userPhoto.getCrop(), userPhoto.getGravity(), 90, 90, true);
             ((ProductItemHolder) holder).imgHelper.loadImage(urlUserPhoto, ((ProductItemHolder) holder).userPhoto);
+            ((ProductItemHolder) holder).userPhoto.invalidate();
 
             ((ProductItemHolder) holder).likesPhoto.setSelected(false);
             ((ProductItemHolder) holder).likes.setTextColor(ctx.getResources().getColor(R.color.cinza));

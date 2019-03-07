@@ -43,6 +43,7 @@ public class ImageAdapter extends PagerAdapter {
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.activity_product_pager_img);
         imgHelper.loadImage(mImageList.get(position), imageView);
+        imageView.invalidate();
 
         container.addView(itemView);
 
